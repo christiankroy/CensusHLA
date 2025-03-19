@@ -1,0 +1,47 @@
+Package: CensusHLA
+Title: CensusHLA - a package to map US HLA Frequency data by region
+Version: 0.0.0.9000
+Authors@R: 
+    person("Christian", "Roy", , "christian.roy@affinittx.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-5953-5048"))
+Description: Combines US HLA Frequencies with Census data for regional frequency predictions
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+URL: https://github.com/Affini-T-Tx/CensusHLA
+BugReports: https://github.com/Affini-T-Tx/CensusHLA
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    tidyverse (>= 1.3.1),
+    ggplot2 (>= 3.3.5),
+    rmarkdown (>= 2.14),
+    testthat (>= 3.1.4),
+    knitr,
+    assertthat (>= 0.2.1),
+    data.table,
+    forcats,
+    usmap,
+    h3jsr,
+    sf,
+    rnaturalearth
+Suggests: 
+    dplyr,
+    crayon,
+    tibble,
+    tidyr,
+    stringr,
+    futile.logger (>= 1.4.3),
+    janitor (>= 2.1.0),
+    readr (>= 2.1.3),
+    readxl (>= 1.4.1),
+    purrr (>= 0.3.4),
+    pkgdown (>= 2.0.6),
+    usethis (>= 2.1.6),
+    todor (>= 0.1.2),
+    broom (>= 1.0.1),
+    censusapi (>= 0.8.0)
+Depends: 
+    R (>= 3.5)
+LazyData: true
+VignetteBuilder: knitr

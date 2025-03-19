@@ -1,0 +1,16 @@
+citHeader("To cite CensusHLA in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = 'CensusHLA',
+  author   = 'Chris Roy',
+  journal  = 'NA',
+  year     = '2025',
+  volume   = 'NA',
+  number   = 'NA',
+  pages    = 'NA',
+  url      = 'https://github.com/Affini-T-Tx/CensusHLA',
+  textVersion = paste(
+
+  )
+)

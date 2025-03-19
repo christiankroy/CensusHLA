@@ -1,0 +1,155 @@
+```{r}
+library(ggplot2)
+library(CensusHLA)
+```
+
+
+```{r}
+
+info_by_county <- census_adjusted_nmdp_hla_frequencies_by_county |> 
+  dplyr::filter(!(state %in% c('Alaska','Hawaii'))) |> 
+  dplyr::filter(allele == 'A*11:01') 
+
+out_data <- info_by_county |>
+  dplyr::ungroup() |>
+  dplyr::filter(allele == 'A*11:01') |>
+  dplyr::group_by(region, state, census_region, county, fips, loci, allele) |>
+  dplyr::summarize(gf = sum(us_2020_nmdp_gf)) |>
+  dplyr::filter(!(is.na(gf))) |>
+  # Create a STATEFP and COUNTYFP column by breaking the fips column on the 3rd character to the end
+  dplyr::mutate(STATEFP = substr(fips, 1, 2),
+                COUNTYFP = substr(fips, 3, nchar(fips)))
+
+out_data <-
+  out_data |>
+  dplyr::mutate(
+    county = dplyr::case_when(
+      state == "Connecticut" &
+        census_region == "Litchfield County, Connecticut" ~ "Northwest Hills Planning Region",
+      state == "Connecticut" &
+        census_region == "Hartford County, Connecticut" ~ "Capitol Planning Region",
+      state == "Connecticut" &
+        census_region == "Middlesex County, Connecticut" ~ "Lower Connecticut River Valley Planning Region",
+      state == "Connecticut" &
+        census_region == "Windham County, Connecticut" ~ "Northeastern Connecticut Planning Region",
+      state == "Connecticut" &
+        census_region == "New Haven County, Connecticut" ~ "South Central Connecticut Planning Region",
+      state == "Connecticut" &
+        census_region == "New London Count, Connecticut" ~ "Southeastern Connecticut Planning Region",
+      state == "Connecticut" &
+        census_region == "Fairfield County, Connecticut" ~ "Western Connecticut Planning Region",
+      state == "Connecticut" &
+        census_region == "Tolland County" ~ "Capitol Planning Region",
+      census_region == "Doña Ana County" ~ "Donna Ana County",
+      census_region == "Chugach Census Area" ~ "Valdez-Cordova Census Area",
+      census_region == "Copper River Census Area" ~ "Valdez-Cordova Census Area",
+      T ~ census_region
+    )) |> 
+  dplyr::mutate(
+    fips = dplyr::case_when(state == "Connecticut" & county == "Northwest Hills Planning Region" ~ "09160",
+                        state == "Connecticut" & county == "Greater Bridgeport Planning Region" ~ "09120",
+                        state == "Connecticut" & county == "Lower Connecticut River Valley Planning Region" ~ "09130",
+                        state == "Connecticut" & county == "Naugatuck Valley Planning Region" ~ "09140",
+                        state == "Connecticut" & county == "Northeastern Connecticut Planning Region" ~ "09150",
+                        state == "Connecticut" & county == "South Central Connecticut Planning Region" ~ "09170",
+                        state == "Connecticut" & county == "Southeastern Connecticut Planning Region" ~ "09180",
+                        state == "Connecticut" & county == "Western Connecticut Planning Region" ~ "09190",
+                        state == "Connecticut" & county == "Capitol Planning Region" ~ "09110",
+                        T ~ fips)
+    )
+
+gg_a11_by_county <- 
+  usmap::plot_usmap(
+  data = out_data,
+  regions = "counties",
+  exclude = c('AK','HI'),
+  #include = c('AK', 'HI'),
+  values = "gf",
+  color = "black",
+  linewidth = 0.1
+) +
+  viridis::scale_fill_viridis(option = "plasma", direction = 1)
+
+gg_a11_by_county
+##ggsave("fig_2_a11.svg", gg_a11_by_county, device = "svg")
+```
+
+```{r}
+
+info_by_county <- census_adjusted_nmdp_hla_frequencies_by_county |> 
+  dplyr::filter(!(state %in% c('Alaska','Hawaii'))) |> 
+  dplyr::filter(allele == 'B*58:01') 
+
+out_data <- info_by_county |>
+  dplyr::ungroup() |>
+  dplyr::filter(allele == 'B*58:01') |>
+  dplyr::group_by(region, state, census_region, county, fips, loci, allele) |>
+  dplyr::summarize(gf = sum(us_2020_nmdp_gf)) |>
+  dplyr::filter(!(is.na(gf))) |>
+  # Create a STATEFP and COUNTYFP column by breaking the fips column on the 3rd character to the end
+  dplyr::mutate(STATEFP = substr(fips, 1, 2),
+                COUNTYFP = substr(fips, 3, nchar(fips)))
+
+out_data <-
+  out_data |>
+  dplyr::mutate(
+    county = dplyr::case_when(
+      state == "Connecticut" &
+        census_region == "Litchfield County, Connecticut" ~ "Northwest Hills Planning Region",
+      state == "Connecticut" &
+        census_region == "Hartford County, Connecticut" ~ "Capitol Planning Region",
+      state == "Connecticut" &
+        census_region == "Middlesex County, Connecticut" ~ "Lower Connecticut River Valley Planning Region",
+      state == "Connecticut" &
+        census_region == "Windham County, Connecticut" ~ "Northeastern Connecticut Planning Region",
+      state == "Connecticut" &
+        census_region == "New Haven County, Connecticut" ~ "South Central Connecticut Planning Region",
+      state == "Connecticut" &
+        census_region == "New London Count, Connecticut" ~ "Southeastern Connecticut Planning Region",
+      state == "Connecticut" &
+        census_region == "Fairfield County, Connecticut" ~ "Western Connecticut Planning Region",
+      state == "Connecticut" &
+        census_region == "Tolland County" ~ "Capitol Planning Region",
+      census_region == "Doña Ana County" ~ "Donna Ana County",
+      census_region == "Chugach Census Area" ~ "Valdez-Cordova Census Area",
+      census_region == "Copper River Census Area" ~ "Valdez-Cordova Census Area",
+      T ~ census_region
+    )) |> 
+  dplyr::mutate(
+    fips = dplyr::case_when(state == "Connecticut" & county == "Northwest Hills Planning Region" ~ "09160",
+                        state == "Connecticut" & county == "Greater Bridgeport Planning Region" ~ "09120",
+                        state == "Connecticut" & county == "Lower Connecticut River Valley Planning Region" ~ "09130",
+                        state == "Connecticut" & county == "Naugatuck Valley Planning Region" ~ "09140",
+                        state == "Connecticut" & county == "Northeastern Connecticut Planning Region" ~ "09150",
+                        state == "Connecticut" & county == "South Central Connecticut Planning Region" ~ "09170",
+                        state == "Connecticut" & county == "Southeastern Connecticut Planning Region" ~ "09180",
+                        state == "Connecticut" & county == "Western Connecticut Planning Region" ~ "09190",
+                        state == "Connecticut" & county == "Capitol Planning Region" ~ "09110",
+                        T ~ fips)
+    )
+
+gg_b58_by_county <- 
+  usmap::plot_usmap(
+  data = out_data,
+  regions = "counties",
+  exclude = c('AK','HI'),
+  #include = c('AK', 'HI'),
+  values = "gf",
+  color = "black",
+  linewidth = 0.1
+) +
+  viridis::scale_fill_viridis(option = "plasma", direction = 1)
+
+gg_b58_by_county
+##ggsave("fig_2_b58.svg", gg_b58_by_county, device = "svg")
+```
+
+# System and Session info
+
+```{r}
+
+sessionInfo()
+Sys.info()
+```
+
+

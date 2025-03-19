@@ -1,0 +1,61 @@
+---
+title: "Catchment analysis"
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(DT)
+library(CensusHLA)
+```
+
+## A11
+
+```{r, fig.height = 8, fig.width = 8}
+#| label: A11 Catchment by frequency
+#| echo: false
+#| code-fold: true
+#| warning: false
+#| message: false
+#| execute: true
+#| output: true
+gg_catchment <- plot_delNero2022_catchment_areas(
+  query_allele = 'A*11:01',
+  sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed = a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed
+)
+gg_catchment
+##ggsave("fig6_catchment_a11.svg", gg_catchment, device = "svg")
+# save table
+
+```
+
+## B58:01
+
+```{r, fig.height = 8, fig.width = 8}
+#| label: A11 Catchment by frequency
+#| echo: false
+#| code-fold: true
+#| warning: false
+#| message: false
+#| execute: true
+#| output: true
+
+b58_catchment_summed <- summarize_tract_genotypic_frequencies_by_delNero2022_catchment(query_allele = 'B*58:01')
+
+gg_catchment <- plot_delNero2022_catchment_areas(
+  query_allele = 'B*58:01',
+  sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed = b58_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed
+)
+gg_catchment
+##ggsave("fig6_catchment_b58.svg", gg_catchment, device = "svg")
+```
+
+# System and Session info
+
+```{r}
+
+sessionInfo()
+Sys.info()
+```
+
+

@@ -1,0 +1,67 @@
+---
+title: "Table 2 - San Francisco County Frequencies - top 10"
+format: html
+---
+  
+```{r}
+library(CensusHLA)
+```
+
+# MS B*58:01
+
+```{r}
+info_by_county <- census_adjusted_nmdp_hla_frequencies_by_county |> 
+  dplyr::filter(state %in% c('Mississippi')) |> 
+  dplyr::filter(allele %in% c('B*58:01'))
+```
+
+```{r}
+out_data <- info_by_county |>
+  dplyr::ungroup() |>
+  dplyr::filter(allele == 'B*58:01') |>
+  dplyr::group_by(region, state, census_region, county, fips, loci, allele) |>
+  dplyr::summarize(gf = sum(us_2020_nmdp_gf)) |>
+  dplyr::filter(!(is.na(gf))) |>
+  # Create a STATEFP and COUNTYFP column by breaking the fips column on the 3rd character to the end
+  dplyr::mutate(STATEFP = substr(fips, 1, 2),
+                COUNTYFP = substr(fips, 3, nchar(fips)))
+
+out_data <- out_data |> 
+  dplyr::arrange(desc(gf))
+out_data
+#write.csv(out_data, "table_2_b58_in_ms.csv")
+```
+
+# CA A*11:01
+
+```{r}
+info_by_county <- census_adjusted_nmdp_hla_frequencies_by_county |> 
+  dplyr::filter(state %in% c('California')) |> 
+  dplyr::filter(allele %in% c('A*11:01','A*02:01','A*03:01'))
+```
+
+```{r}
+out_data <- info_by_county |>
+  dplyr::ungroup() |>
+  dplyr::filter(allele == 'A*11:01') |>
+  dplyr::group_by(region, state, census_region, county, fips, loci, allele) |>
+  dplyr::summarize(gf = sum(us_2020_nmdp_gf)) |>
+  dplyr::filter(!(is.na(gf))) |>
+  # Create a STATEFP and COUNTYFP column by breaking the fips column on the 3rd character to the end
+  dplyr::mutate(STATEFP = substr(fips, 1, 2),
+                COUNTYFP = substr(fips, 3, nchar(fips)))
+
+out_data <- out_data |> 
+  dplyr::arrange(desc(gf))
+out_data
+#write.csv(out_data, "table_2_a11_in_ca.csv")
+```
+
+
+# System and Session Information
+
+```{r}
+sessionInfo()
+Sys.info()
+```
+

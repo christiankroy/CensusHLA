@@ -1,0 +1,132 @@
+```{r}
+library(ggplot2)
+library(CensusHLA)
+```
+
+
+```{r}
+info_by_county <- census_adjusted_nmdp_hla_frequencies_by_county |> 
+  dplyr::filter(state %in% c('Mississippi')) |> 
+  dplyr::filter(allele %in% c('B*58:01'))
+```
+
+```{r}
+out_data <- info_by_county |>
+  dplyr::ungroup() |>
+  dplyr::filter(allele == 'B*58:01') |>
+  dplyr::group_by(region, state, census_region, county, fips, loci, allele) |>
+  dplyr::summarize(gf = sum(us_2020_nmdp_gf)) |>
+  dplyr::filter(!(is.na(gf))) |>
+  # Create a STATEFP and COUNTYFP column by breaking the fips column on the 3rd character to the end
+  dplyr::mutate(STATEFP = substr(fips, 1, 2),
+                COUNTYFP = substr(fips, 3, nchar(fips)))
+
+gg_b58_in_ms <- 
+  usmap::plot_usmap(
+  data = out_data,
+  regions = "counties",
+  include = c('MS'),
+  values = "gf",
+  color = "black",
+  linewidth = 0.1
+) +
+  viridis::scale_fill_viridis(option = "plasma", direction = 1) + 
+  theme(legend.position = 'right' )
+
+gg_b58_in_ms
+##ggsave("fig_3_b58.svg", gg_b58_in_ms, device = "svg")
+```
+
+
+```{r}
+info_by_county <- census_adjusted_nmdp_hla_frequencies_by_county |> 
+  dplyr::filter(state %in% c('California')) |> 
+  dplyr::filter(allele %in% c('A*11:01','A*02:01','A*03:01'))
+```
+
+```{r}
+out_data <- info_by_county |>
+  dplyr::ungroup() |>
+  dplyr::filter(allele == 'A*11:01') |>
+  dplyr::group_by(region, state, census_region, county, fips, loci, allele) |>
+  dplyr::summarize(gf = sum(us_2020_nmdp_gf)) |>
+  dplyr::filter(!(is.na(gf))) |>
+  # Create a STATEFP and COUNTYFP column by breaking the fips column on the 3rd character to the end
+  dplyr::mutate(STATEFP = substr(fips, 1, 2),
+                COUNTYFP = substr(fips, 3, nchar(fips)))
+
+gg_a11_in_ca <- 
+  usmap::plot_usmap(
+  data = out_data,
+  regions = "counties",
+  include = c('CA'),
+  values = "gf",
+  color = "black",
+  linewidth = 0.1
+) +
+  viridis::scale_fill_viridis(option = "plasma", direction = 1)
+
+gg_a11_in_ca
+##ggsave("fig_3_a11.svg", gg_a11_in_ca, device = "svg")
+```
+
+```{r}
+out_data <- info_by_county |>
+  dplyr::ungroup() |>
+  dplyr::filter(allele == 'A*02:01') |>
+  dplyr::group_by(region, state, census_region, county, fips, loci, allele) |>
+  dplyr::summarize(gf = sum(us_2020_nmdp_gf)) |>
+  dplyr::filter(!(is.na(gf))) |>
+  # Create a STATEFP and COUNTYFP column by breaking the fips column on the 3rd character to the end
+  dplyr::mutate(STATEFP = substr(fips, 1, 2),
+                COUNTYFP = substr(fips, 3, nchar(fips)))
+
+gg_a02_in_ca <- 
+  usmap::plot_usmap(
+  data = out_data,
+  regions = "counties",
+  include = c('CA'),
+  values = "gf",
+  color = "black",
+  linewidth = 0.1
+) +
+  viridis::scale_fill_viridis(option = "plasma", direction = 1)
+
+gg_a02_in_ca
+##ggsave("fig_3_a02.svg", gg_a02_in_ca, device = "svg")
+```
+
+```{r}
+out_data <- info_by_county |>
+  dplyr::ungroup() |>
+  dplyr::filter(allele == 'A*03:01') |>
+  dplyr::group_by(region, state, census_region, county, fips, loci, allele) |>
+  dplyr::summarize(gf = sum(us_2020_nmdp_gf)) |>
+  dplyr::filter(!(is.na(gf))) |>
+  # Create a STATEFP and COUNTYFP column by breaking the fips column on the 3rd character to the end
+  dplyr::mutate(STATEFP = substr(fips, 1, 2),
+                COUNTYFP = substr(fips, 3, nchar(fips)))
+
+gg_a03_in_ca <- 
+  usmap::plot_usmap(
+  data = out_data,
+  regions = "counties",
+  include = c('CA'),
+  values = "gf",
+  color = "black",
+  linewidth = 0.1
+) +
+  viridis::scale_fill_viridis(option = "plasma", direction = 1)
+
+gg_a03_in_ca
+##ggsave("fig_3_a03.svg", gg_a03_in_ca, device = "svg")
+```
+
+# System and Session info
+
+```{r}
+sessionInfo()
+Sys.info()
+```
+
+
