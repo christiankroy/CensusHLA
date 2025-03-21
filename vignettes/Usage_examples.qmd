@@ -1,0 +1,305 @@
+---
+title: "A11_Frequency_by_US_State"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{A11_Frequency_by_US_State}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(CensusHLA)
+library(ggplot2)
+library(dplyr)
+```
+
+# Frequencies by state
+
+## Continental US A11
+
+```{r}
+state_frequencies <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_state |> dplyr::filter(allele == 'A*11:01')
+
+out_data <- state_frequencies |>
+  dplyr::ungroup() |>
+  dplyr::group_by(region, census_region, fips) |>
+  dplyr::summarize(gf = sum(us_2020_nmdp_gf))
+
+gg_state <- usmap::plot_usmap(
+  data = out_data,
+  regions = "states",
+  #exclude = c('Alaksa','Hawaii'),
+  exclude = c('AK', 'HI'),
+  values = "gf",
+  color = "black",
+  linewidth = 0.1
+) +
+  viridis::scale_fill_viridis(option = "plasma", direction = 1)
+```
+
+```{r}
+out_data |>
+DT::datatable(
+  ,filter = 'top'
+  ,rownames = FALSE
+  ,extensions = 'Buttons', options = list(
+    scrollX=TRUE,
+    pageLength = 10,
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel', 'pdf', 'colvis')
+    )
+  )
+```
+
+
+## Alaska and Hawaii US A11 frequencies
+
+```{r}
+
+ak <-
+  CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> dplyr::filter(state == 'Alaska' &
+                                                                               allele == 'A*11:01')
+hi <-
+  CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> dplyr::filter(state == 'Hawaii' &
+                                                                               allele == 'A*11:01')
+
+state_county_frequencies <- rbind(ak, hi)
+
+out_data <- state_county_frequencies |>
+  dplyr::ungroup() |>
+  dplyr::filter(allele == 'A*11:01') |>
+  dplyr::group_by(region, state, census_region, county, fips, loci, allele) |>
+  dplyr::summarize(us_2020_nmdp_gf_sum = sum(us_2020_nmdp_gf)) |>
+  dplyr::filter(!(is.na(us_2020_nmdp_gf_sum))) |>
+  # Create a STATEFP and COUNTYFP column by breaking the fips column on the 3rd character to the end
+  dplyr::mutate(STATEFP = substr(fips, 1, 2),
+                COUNTYFP = substr(fips, 3, nchar(fips)))
+
+gg_ak_and_hi <- usmap::plot_usmap(
+  data = out_data,
+  regions = "counties",
+  #exclude = c('Alaksa','Hawaii'),
+  include = c('AK', 'HI'),
+  values = "us_2020_nmdp_gf_sum",
+  color = "black",
+  linewidth = 0.1
+) +
+  viridis::scale_fill_viridis(option = "plasma", direction = 1)
+gg_ak_and_hi
+```
+
+# County Maps
+
+## Whole US
+
+
+```{r}
+info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
+  dplyr::filter(!(state %in% c('Alaska','Hawaii'))) |> 
+  dplyr::filter(allele == 'A*11:01') 
+
+out_data <- info_by_county |>
+  dplyr::ungroup() |>
+  dplyr::filter(allele == 'A*11:01') |>
+  dplyr::group_by(region, state, census_region, county, fips, loci, allele) |>
+  dplyr::summarize(gf = sum(us_2020_nmdp_gf)) |>
+  dplyr::filter(!(is.na(gf))) |>
+  # Create a STATEFP and COUNTYFP column by breaking the fips column on the 3rd character to the end
+  dplyr::mutate(STATEFP = substr(fips, 1, 2),
+                COUNTYFP = substr(fips, 3, nchar(fips)))
+
+out_data <-
+  out_data |>
+  dplyr::mutate(
+    county = dplyr::case_when(
+      state == "Connecticut" &
+        census_region == "Litchfield County, Connecticut" ~ "Northwest Hills Planning Region",
+      state == "Connecticut" &
+        census_region == "Hartford County, Connecticut" ~ "Capitol Planning Region",
+      state == "Connecticut" &
+        census_region == "Middlesex County, Connecticut" ~ "Lower Connecticut River Valley Planning Region",
+      state == "Connecticut" &
+        census_region == "Windham County, Connecticut" ~ "Northeastern Connecticut Planning Region",
+      state == "Connecticut" &
+        census_region == "New Haven County, Connecticut" ~ "South Central Connecticut Planning Region",
+      state == "Connecticut" &
+        census_region == "New London Count, Connecticut" ~ "Southeastern Connecticut Planning Region",
+      state == "Connecticut" &
+        census_region == "Fairfield County, Connecticut" ~ "Western Connecticut Planning Region",
+      state == "Connecticut" &
+        census_region == "Tolland County" ~ "Capitol Planning Region",
+      census_region == "Doña Ana County" ~ "Donna Ana County",
+      census_region == "Chugach Census Area" ~ "Valdez-Cordova Census Area",
+      census_region == "Copper River Census Area" ~ "Valdez-Cordova Census Area",
+      T ~ census_region
+    )) |> 
+  dplyr::mutate(
+    fips = dplyr::case_when(state == "Connecticut" & county == "Northwest Hills Planning Region" ~ "09160",
+                        state == "Connecticut" & county == "Greater Bridgeport Planning Region" ~ "09120",
+                        state == "Connecticut" & county == "Lower Connecticut River Valley Planning Region" ~ "09130",
+                        state == "Connecticut" & county == "Naugatuck Valley Planning Region" ~ "09140",
+                        state == "Connecticut" & county == "Northeastern Connecticut Planning Region" ~ "09150",
+                        state == "Connecticut" & county == "South Central Connecticut Planning Region" ~ "09170",
+                        state == "Connecticut" & county == "Southeastern Connecticut Planning Region" ~ "09180",
+                        state == "Connecticut" & county == "Western Connecticut Planning Region" ~ "09190",
+                        state == "Connecticut" & county == "Capitol Planning Region" ~ "09110",
+                        T ~ fips)
+    )
+
+gg_a11_by_county <- 
+  usmap::plot_usmap(
+  data = out_data,
+  regions = "counties",
+  exclude = c('AK','HI'),
+  #include = c('AK', 'HI'),
+  values = "gf",
+  color = "black",
+  linewidth = 0.1
+) +
+  viridis::scale_fill_viridis(option = "plasma", direction = 1)
+
+gg_a11_by_county
+```
+
+
+```{r}
+out_data |>
+  dplyr::arrange(desc(gf)) |> 
+  head(n=20) |> 
+DT::datatable(
+  ,filter = 'top'
+  ,rownames = FALSE
+  ,extensions = 'Buttons', options = list(
+    scrollX=TRUE,
+    pageLength = 10,
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel', 'pdf', 'colvis')
+    )
+  )
+```
+
+
+## In CA
+
+
+```{r}
+info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
+  dplyr::filter(state %in% c('California')) |> 
+  dplyr::filter(allele %in% c('A*11:01','A*02:01','A*03:01'))
+```
+
+```{r}
+out_data <- info_by_county |>
+  dplyr::ungroup() |>
+  dplyr::filter(allele == 'A*11:01') |>
+  dplyr::group_by(region, state, census_region, county, fips, loci, allele) |>
+  dplyr::summarize(gf = sum(us_2020_nmdp_gf)) |>
+  dplyr::filter(!(is.na(gf))) |>
+  # Create a STATEFP and COUNTYFP column by breaking the fips column on the 3rd character to the end
+  dplyr::mutate(STATEFP = substr(fips, 1, 2),
+                COUNTYFP = substr(fips, 3, nchar(fips)))
+
+gg_a11_in_ca <- 
+  usmap::plot_usmap(
+  data = out_data,
+  regions = "counties",
+  include = c('CA'),
+  values = "gf",
+  color = "black",
+  linewidth = 0.1
+) +
+  viridis::scale_fill_viridis(option = "plasma", direction = 1)
+
+gg_a11_in_ca
+##ggsave("fig_3_a11.svg", gg_a11_in_ca, device = "svg")
+```
+
+```{r}
+out_data |>
+DT::datatable(
+  ,filter = 'top'
+  ,rownames = FALSE
+  ,extensions = 'Buttons', options = list(
+    scrollX=TRUE,
+    pageLength = 10,
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel', 'pdf', 'colvis')
+    )
+  )
+```
+
+# H3 Hexagons
+
+## MA
+
+
+```{r}
+(state_info <- query_state_codes())
+```
+
+```{r, fig.height = 8, fig.width = 8}
+ms_4 <-
+  summarize_tract_genotypic_frequencies_by_h3_hexagon(
+    state_abbreviation = 'MS',
+    query_allele = 'B*58:01',
+    h3_resolution = 4
+  )
+ms_4$p1
+```
+
+
+# Within County
+
+## San Francisco, CA
+
+
+```{r, fig.height = 8, fig.width = 8}
+ca_francisco <- make_county_census_tract_allele_frequency_map(
+  state_abbreviation = 'CA',
+  query_allele = 'A*11:01',
+  county_code = '075',
+  county_name = 'San Francisco County'
+)
+ca_francisco
+```
+
+# By Cancer Center catchment area
+
+## A11
+
+```{r, fig.height = 8, fig.width = 8}
+gg_catchment <- plot_delNero2022_catchment_areas(
+  query_allele = 'A*11:01',
+  CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed
+)
+```
+```{r}
+CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed |> dplyr::select(-geometry) |> dplyr::mutate(patient_pop = total_2020_pop * us_2020_nmdp_gf_sum) |>  dplyr::arrange(desc(patient_pop)) |> DT::datatable(
+  ,filter = 'top'
+  ,rownames = FALSE
+  ,extensions = 'Buttons', options = list(
+    scrollX=TRUE,
+    pageLength = 10,
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel', 'pdf', 'colvis')
+    )
+  )
+```
+
+
+
+# System and Session info
+
+```{r}
+sessionInfo()
+Sys.info()
+```
+
+

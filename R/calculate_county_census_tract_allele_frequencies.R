@@ -8,8 +8,6 @@
 calculate_county_census_tract_allele_frequencies <-  function(
   state_abbreviation, query_allele) {
 
-  
-
   state_codes <- query_state_codes()
   state_code <- dplyr::filter(state_codes,STATE == state_abbreviation) |> dplyr::pull(STATEFP)
   # Flog that we're working with a given state
@@ -132,7 +130,7 @@ calculate_county_census_tract_allele_frequencies <-  function(
       .groups = "keep"
     )
 
-  us_pop_multirace_adjusted_in_nmdp_codes <-
+  us_pop_multirace_in_nmdp_codes <-
     us_census_2020_race_details_race_num_adjusted_long |>
     # Filter for those with >1 race
     dplyr::filter(num_reported_races == 1) |>
@@ -165,7 +163,7 @@ calculate_county_census_tract_allele_frequencies <-  function(
 
 
   us_population_race_code_percentages <-
-    us_pop_multirace_adjusted_in_nmdp_codes |>
+    us_pop_multirace_in_nmdp_codes |>
     dplyr::mutate(census_region = tract) |>
     dplyr::group_by(state, county, census_region) |>
     dplyr::mutate(us_2020_percent_pop = total_2020_pop / sum(total_2020_pop))
@@ -194,9 +192,11 @@ calculate_county_census_tract_allele_frequencies <-  function(
     dplyr::mutate(us_2020_nmdp_gf = nmdp_calc_gf * us_2020_percent_pop) |>
     dplyr::arrange(desc(us_2020_nmdp_gf))
 
+
   shapefile_path <-
     paste0(
-      "/mnt/efs/prj/christian.roy/tiger_2020_census_tract_shape_files/",
+      system.file(package = "CensusHLA"),
+      "/extdata/tiger_2020/tract/",
       "tl_2020_",
       state_code,
       "_tract.shp"

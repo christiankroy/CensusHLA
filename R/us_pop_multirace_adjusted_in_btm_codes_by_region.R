@@ -13,8 +13,8 @@
 #' @param in_region A string of either 'us', 'all states' (not useful), or a valid state name like 'Alaska'
 #' @param census_region_level A string of either 'state' or 'county' to specify if the data for region should be divided by state or by county inside the state. The default is state.
 #' @export
-#' @examples us_pop_multirace_adjusted_in_nmdp_codes_by_region(in_region = 'Alaska')
-us_pop_multirace_adjusted_in_nmdp_codes_by_region <- function(in_region, census_region_level = "state") {
+#' @examples us_pop_multirace_in_nmdp_codes_by_region(in_region = 'Alaska')
+us_pop_multirace_in_nmdp_codes_by_region <- function(in_region, census_region_level = "state") {
   if (!(in_region %in% c("us", "all states", "all counties", valid_state_names)))
   {
     return(
@@ -145,7 +145,7 @@ us_pop_multirace_adjusted_in_nmdp_codes_by_region <- function(in_region, census_
           .groups = "keep"
         )
 
-      us_pop_multirace_adjusted_in_nmdp_codes <-
+      us_pop_multirace_in_nmdp_codes <-
         us_census_2020_race_details_race_num_adjusted_long |>
         # Filter for those with >1 race
         dplyr::filter(num_reported_races == 1) |>
@@ -170,24 +170,24 @@ us_pop_multirace_adjusted_in_nmdp_codes_by_region <- function(in_region, census_
 
 
       if (in_region == 'us') {
-        us_pop_multirace_adjusted_in_nmdp_codes <-
-          us_pop_multirace_adjusted_in_nmdp_codes |>
+        us_pop_multirace_in_nmdp_codes <-
+          us_pop_multirace_in_nmdp_codes |>
           dplyr::mutate(region = 'us') |>
           dplyr::group_by(region, nmdp_race_code) |>
           dplyr::summarize_all(sum) |>
           dplyr::mutate(census_region = "us")
       } else if (in_region == 'all states' &
                  census_region_level == "state") {
-        us_pop_multirace_adjusted_in_nmdp_codes <-
-          us_pop_multirace_adjusted_in_nmdp_codes |>
+        us_pop_multirace_in_nmdp_codes <-
+          us_pop_multirace_in_nmdp_codes |>
           dplyr::mutate(census_region = region, region = 'all states')
       } else if (in_region == 'all states' &
                  census_region_level != "state") {
         futile.logger::flog.info(
           "When in_region == 'all states' census_region_level must be set to 'state'. Switching to summary by state"
         )
-        us_pop_multirace_adjusted_in_nmdp_codes <-
-          us_pop_multirace_adjusted_in_nmdp_codes |>
+        us_pop_multirace_in_nmdp_codes <-
+          us_pop_multirace_in_nmdp_codes |>
           dplyr::mutate(region = stringr::str_split(region, ",") |> purrr::map_chr(2)) |>
           dplyr::group_by(region, nmdp_race_code) |>
           dplyr::summarize_all(sum) |>
@@ -195,38 +195,38 @@ us_pop_multirace_adjusted_in_nmdp_codes_by_region <- function(in_region, census_
           dplyr::mutate(region = 'us')
       } else if (in_region == 'all counties' &
                  census_region_level == "county") {
-        us_pop_multirace_adjusted_in_nmdp_codes <-
-          us_pop_multirace_adjusted_in_nmdp_codes |>
+        us_pop_multirace_in_nmdp_codes <-
+          us_pop_multirace_in_nmdp_codes |>
           dplyr::mutate(census_region = region, region = 'all counties')
       } else if (in_region == 'all counties' &
                  census_region_level != "county") {
         futile.logger::flog.info(
           "When in_region == 'all counties' census_region_level must be set to 'county'. Switching to summary by state"
         )
-        us_pop_multirace_adjusted_in_nmdp_codes <-
-          us_pop_multirace_adjusted_in_nmdp_codes |>
+        us_pop_multirace_in_nmdp_codes <-
+          us_pop_multirace_in_nmdp_codes |>
           dplyr::mutate(census_region = "all states") |>
           dplyr::mutate(region = 'us')
       } else if (in_region %in% valid_state_names &
                  census_region_level == "state") {
-        us_pop_multirace_adjusted_in_nmdp_codes <-
-          us_pop_multirace_adjusted_in_nmdp_codes |>
+        us_pop_multirace_in_nmdp_codes <-
+          us_pop_multirace_in_nmdp_codes |>
           dplyr::filter(region == in_region) |>
           dplyr::mutate(census_region = region) |>
           dplyr::mutate(region = 'us')
       } else if (in_region %in% valid_state_names &
                  census_region_level == "county") {
-        us_pop_multirace_adjusted_in_nmdp_codes <-
-          us_pop_multirace_adjusted_in_nmdp_codes |>
+        us_pop_multirace_in_nmdp_codes <-
+          us_pop_multirace_in_nmdp_codes |>
           dplyr::filter(stringr::str_split(region, ", ") |> purrr::map_chr(2) == in_region) |>
           dplyr::mutate(census_region = region) |>
           dplyr::mutate(region = 'us')
       }
 
-      us_pop_multirace_adjusted_in_nmdp_codes <-
-        dplyr::ungroup(us_pop_multirace_adjusted_in_nmdp_codes)
+      us_pop_multirace_in_nmdp_codes <-
+        dplyr::ungroup(us_pop_multirace_in_nmdp_codes)
 
-      return(us_pop_multirace_adjusted_in_nmdp_codes)
+      return(us_pop_multirace_in_nmdp_codes)
     }
   }
 }

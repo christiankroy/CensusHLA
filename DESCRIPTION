@@ -24,9 +24,11 @@ Imports:
     usmap,
     h3jsr,
     sf,
-    rnaturalearth
+    rnaturalearth,
+    RCurl,
+    DT,
+    dplyr
 Suggests: 
-    dplyr,
     crayon,
     tibble,
     tidyr,

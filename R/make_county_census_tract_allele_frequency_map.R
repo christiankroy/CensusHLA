@@ -19,7 +19,7 @@ make_county_census_tract_allele_frequency_map <-  function(
     county_code,
     county_name,
     query_allele) {
-
+  library(ggplot2)
   state_census_tract_frequencies <- calculate_county_census_tract_allele_frequencies(state_abbreviation, query_allele)
   nmdp_freq_subset <- state_census_tract_frequencies$nmdp_freq_subset
   sf_data <- state_census_tract_frequencies$sf_data

@@ -51,7 +51,7 @@ summarize_tract_genotypic_frequencies_by_h3_hexagon <- function(state_abbreviati
     dplyr::filter(!(is.na(us_2020_nmdp_gf_sum)))
 
   genotypic_frequencies_by_hexon$geometry <- h3jsr::cell_to_polygon(genotypic_frequencies_by_hexon$hex)
-  
+
   options(tigris_use_cache = TRUE)
   usa_states <- rnaturalearth::ne_states(country = 'United States of America')
   target_state_df <- as.data.frame(usa_states) |>
@@ -62,7 +62,7 @@ summarize_tract_genotypic_frequencies_by_h3_hexagon <- function(state_abbreviati
 
   p1 <-
     genotypic_frequencies_by_hexon |>
-    ggplot() +
+    ggplot2::ggplot() +
     geom_sf(aes(geometry = geometry, fill = us_2020_nmdp_gf_sum)) +
     geom_sf(data = target_state_transformed,linewidth = 3,fill=NA) +
     #geom_sf(data = shape_file, fill = "lightgreen", color = "black", alpha = 0.2) +
