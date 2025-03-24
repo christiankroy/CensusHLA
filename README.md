@@ -3,13 +3,11 @@
 
 # CensusHLA
 
-<!-- badges: start -->
-
-<!-- badges: end -->
-
-TODO Run through checklog TODO Add badges
-
-# Setup
+<figure>
+<img src="man/figures/a11_by_county.png" style="width:50.0%"
+alt="A11 by County" />
+<figcaption aria-hidden="true">A11 by County</figcaption>
+</figure>
 
 ## System requirements
 
