@@ -7,7 +7,9 @@
 make_state_by_county_allele_frequency_map(state_name, query_allele)
 }
 \arguments{
-\item{query_allele}{}
+\item{state_name}{The name of the state, e.g. 'Texas'}
+
+\item{query_allele}{The allele to query, e.g. 'A*11:01'}
 }
 \value{
 an_object

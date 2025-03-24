@@ -11,7 +11,7 @@ plot_delNero2022_catchment_areas(
 )
 }
 \arguments{
-\item{query_allele}{}
+\item{query_allele}{A character string with the allele to plot}
 }
 \value{
 an_object

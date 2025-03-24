@@ -10,7 +10,7 @@ query_state_codes()
 a data frame of 2020 state codes
 }
 \description{
-Query Census 2020 State Codes
+Query the 2020 state codes from the US Census Bureau
 }
 \examples{
 query_state_codes()

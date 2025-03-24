@@ -1,5 +1,5 @@
 #' Query Census 2020 State Codes
-#'
+#' @description Query the 2020 state codes from the US Census Bureau
 #' @return a data frame of 2020 state codes
 #' @export
 #'

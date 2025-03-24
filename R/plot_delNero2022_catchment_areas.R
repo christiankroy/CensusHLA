@@ -1,7 +1,6 @@
 #' Plot delNero2022 Catchment Areas
 #'
-#' @param plot_delNero2022_catchment_areas
-#' @param query_allele
+#' @param query_allele A character string with the allele to plot
 #'
 #' @return an_object
 #' @export

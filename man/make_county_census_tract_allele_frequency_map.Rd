@@ -12,7 +12,13 @@ make_county_census_tract_allele_frequency_map(
 )
 }
 \arguments{
-\item{query_allele}{}
+\item{state_abbreviation}{2-letter state abbreviation. E.g. 'TX'}
+
+\item{county_code}{3-digit county code. E.g. '157'}
+
+\item{county_name}{County name. E.g. 'Fort Bend'}
+
+\item{query_allele}{HLA allele to query. E.g. 'A*11:01'}
 }
 \value{
 an_object

@@ -1,8 +1,8 @@
 #' Summarize Genotypic frequency by H3 Hexagon and State
 #'
-#' @param state_abbreviation
-#' @param query_allele
-#' @param h3_resolution
+#' @param state_abbreviation The state abbreviation, e.g. 'MA'
+#' @param query_allele The allele to query, e.g. 'A*11:01'
+#' @param h3_resolution The resolution of the H3 hexagon, e.g. 5
 #'
 #' @return an_object
 #' @export

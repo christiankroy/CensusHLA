@@ -13,6 +13,7 @@
 #'   \item us_2020_nmdp_gf - The US-Census race-adjusted genotypic frequency value - used in downstream applications
 #' }
 #' @param in_region A string of either 'us', 'all states' (not useful), or a valid state name like 'Alaska'
+#' @param region_level A string of either 'state' or 'county' - default is 'state'
 #' @note - relies on preprocessing performed in 'preprocessing/nmdpFrequencies.Rmd'
 #' @export
 #' @examples obtain_census_adjusted_nmdp_hla_frequencies_by_region(in_region = 'Alaska')

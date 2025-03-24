@@ -1,12 +1,16 @@
 #' Get Census Tract Info and Map by State
 #'
-#' @param state_abbreviation
-#' @param h3_resolution
+#' @param state_abbreviation A two-letter state abbreviation, e.g. 'TX'
+#' @param h3_resolution The resolution of the H3 hexagons to use. Must be an integer between 0 and 15. e.g. '5'
 #'
 #' @return an_object
 #' @export
 #'
-#' @examples \dontrun{tx_5 <- get_census_tract_info_and_map_by_state(state_abbreviation = 'TX',h3_resolution = 5)}
+#' @examples \dontrun{tx_5 <- 
+#' get_census_tract_info_and_map_by_state(
+#' state_abbreviation = 'TX',
+#' h3_resolution = 5)
+#' }
 #'
 get_census_tract_info_and_map_by_state <- function(state_abbreviation, h3_resolution) {
   library(ggplot2)

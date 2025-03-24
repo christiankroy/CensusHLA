@@ -12,7 +12,11 @@ summarize_tract_genotypic_frequencies_by_h3_hexagon(
 )
 }
 \arguments{
-\item{h3_resolution}{}
+\item{state_abbreviation}{The state abbreviation, e.g. 'MA'}
+
+\item{query_allele}{The allele to query, e.g. 'A*11:01'}
+
+\item{h3_resolution}{The resolution of the H3 hexagon, e.g. 5}
 }
 \value{
 an_object

@@ -1,7 +1,7 @@
 #' Make a plot by State of County Population corrected genotypic frequencies
 #'
-#' @param state_name
-#' @param query_allele
+#' @param state_name The name of the state, e.g. 'Texas'
+#' @param query_allele The allele to query, e.g. 'A*11:01'
 #'
 #' @return an_object
 #' @export
@@ -22,11 +22,11 @@ make_state_by_county_allele_frequency_map <-  function(
   state_code <- dplyr::filter(state_codes,STATE_NAME == state_name) |> dplyr::pull(STATEFP)
 
 
-  shapefile_path <-    
+  shapefile_path <-
       paste0(
         system.file(package = "CensusHLA"),
         "/extdata/tiger_2020/county/tl_2020_us_county.shp")
-        
+
   sf_data <- sf::st_read(shapefile_path)
 
   out_data <- state_county_frequencies |>

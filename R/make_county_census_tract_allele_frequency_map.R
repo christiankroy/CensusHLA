@@ -1,9 +1,9 @@
 #' Make a plot by County of Census Tract Population corrected genotypic frequencies
 #'
-#' @param state_abbreviation
-#' @param county_code
-#' @param county_name
-#' @param query_allele
+#' @param state_abbreviation 2-letter state abbreviation. E.g. 'TX'
+#' @param county_code 3-digit county code. E.g. '157'
+#' @param county_name County name. E.g. 'Fort Bend'
+#' @param query_allele HLA allele to query. E.g. 'A*11:01'
 #'
 #' @return an_object
 #' @export
