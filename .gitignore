@@ -17,3 +17,5 @@ data/nmdp_hla_frequencies_us_2020_census_adjusted.rda
 data/census_adjusted_nmdp_hla_frequencies_by_us.rda
 data/us_pop_multirace_in_nmdp_codes.rda
 00check.log
+/doc/
+/Meta/

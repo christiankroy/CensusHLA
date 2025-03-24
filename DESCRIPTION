@@ -47,5 +47,4 @@ Imports:
 Depends: 
     R (>= 3.5)
 LazyData: true
-VignetteBuilder: quarto
-Suggests: quarto, rmarkdown, knitr
+VignetteBuilder: knitr

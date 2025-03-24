@@ -1,18 +1,11 @@
 ---
-title: "A11_Frequency_by_US_State"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{A11_Frequency_by_US_State}
-  %\VignetteEngine{knitr::rmarkdown}
+title: "Census HLA Usage Examples"
+output: rmarkdown::html_vignette 
+vignette: > 
+  %\VignetteIndexEntry{Census HLA Usage Examples} 
+  %\VignetteEngine{knitr::rmarkdown} 
   %\VignetteEncoding{UTF-8}
 ---
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 ```{r setup}
 library(CensusHLA)
@@ -24,7 +17,7 @@ library(dplyr)
 
 ## Continental US A11
 
-```{r}
+```{r by state}
 state_frequencies <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_state |> dplyr::filter(allele == 'A*11:01')
 
 out_data <- state_frequencies |>
@@ -44,7 +37,7 @@ gg_state <- usmap::plot_usmap(
   viridis::scale_fill_viridis(option = "plasma", direction = 1)
 ```
 
-```{r}
+```{r by state table}
 out_data |>
 DT::datatable(
   ,filter = 'top'
@@ -61,7 +54,7 @@ DT::datatable(
 
 ## Alaska and Hawaii US A11 frequencies
 
-```{r}
+```{r ak and hi}
 
 ak <-
   CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> dplyr::filter(state == 'Alaska' &
@@ -100,7 +93,7 @@ gg_ak_and_hi
 ## Whole US
 
 
-```{r}
+```{r by us county}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(!(state %in% c('Alaska','Hawaii'))) |> 
   dplyr::filter(allele == 'A*11:01') 
@@ -169,7 +162,7 @@ gg_a11_by_county
 ```
 
 
-```{r}
+```{r by us county table}
 out_data |>
   dplyr::arrange(desc(gf)) |> 
   head(n=20) |> 
@@ -189,13 +182,13 @@ DT::datatable(
 ## In CA
 
 
-```{r}
+```{r ca by county}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(state %in% c('California')) |> 
   dplyr::filter(allele %in% c('A*11:01','A*02:01','A*03:01'))
 ```
 
-```{r}
+```{r ca by county map}
 out_data <- info_by_county |>
   dplyr::ungroup() |>
   dplyr::filter(allele == 'A*11:01') |>
@@ -221,7 +214,7 @@ gg_a11_in_ca
 ##ggsave("fig_3_a11.svg", gg_a11_in_ca, device = "svg")
 ```
 
-```{r}
+```{r ca by county table}
 out_data |>
 DT::datatable(
   ,filter = 'top'
@@ -240,11 +233,11 @@ DT::datatable(
 ## MA
 
 
-```{r}
+```{r state codes}
 (state_info <- query_state_codes())
 ```
 
-```{r, fig.height = 8, fig.width = 8}
+```{r ms by hexagons, fig.height = 8, fig.width = 8}
 ms_4 <-
   summarize_tract_genotypic_frequencies_by_h3_hexagon(
     state_abbreviation = 'MS',
@@ -260,7 +253,7 @@ ms_4$p1
 ## San Francisco, CA
 
 
-```{r, fig.height = 8, fig.width = 8}
+```{r san francisco by tract, fig.height = 8, fig.width = 8}
 ca_francisco <- make_county_census_tract_allele_frequency_map(
   state_abbreviation = 'CA',
   query_allele = 'A*11:01',
@@ -274,13 +267,14 @@ ca_francisco
 
 ## A11
 
-```{r, fig.height = 8, fig.width = 8}
+```{r a11 catchment, fig.height = 8, fig.width = 8}
 gg_catchment <- plot_delNero2022_catchment_areas(
   query_allele = 'A*11:01',
   CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed
 )
 ```
-```{r}
+
+```{r a11 catchment table}
 CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed |> dplyr::select(-geometry) |> dplyr::mutate(patient_pop = total_2020_pop * us_2020_nmdp_gf_sum) |>  dplyr::arrange(desc(patient_pop)) |> DT::datatable(
   ,filter = 'top'
   ,rownames = FALSE
@@ -301,5 +295,3 @@ CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment
 sessionInfo()
 Sys.info()
 ```
-
-
