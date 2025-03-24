@@ -15,15 +15,7 @@ knitr::opts_chunk$set(
 
 # CensusHLA
 
-<!-- badges: start -->
-
-<!-- badges: end -->
-
-
-TODO Run through checklog
-TODO Add badges
-
-# Setup
+![A11 by County](man/figures/a11_by_county.png){width=50%}
 
 ## System requirements
 

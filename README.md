@@ -1,0 +1,109 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# CensusHLA
+
+<!-- badges: start -->
+
+<!-- badges: end -->
+
+TODO Run through checklog TODO Add badges
+
+# Setup
+
+## System requirements
+
+The package was tested using \[rocker/verse:latest\] Docker container
+with R 4.4.3 *with some additional system level dependencies*.
+
+Functions which plot frequencies by us map and shape files do have some
+system level requirements. Specifically `sf`,`h3jsr`,`rnaturalearth` and
+`usmap` may give you some trouble.
+
+## Docker image
+
+To make things a little easier, in `inst/extdata/` we have provided a
+`Dockerfile` which will build a container with all the necessary
+dependencies. You can build the container with the following command:
+`sudo docker build -t custom-rocker-verse .`
+
+After building, you can bring up a stack with Posit workbench using the
+file `inst/extdata/docker-compose.yml` directory. This will bring upn
+Posit workbench server at `http://localhost:8787` with username
+`rstudio` and password `password`.
+
+## Census API Key
+
+- Get US Census API Code, Follow instructions
+  [here](https://www.hrecht.com/censusapi/articles/getting-started.html#api-key-setup),
+  get your key [here](http://api.census.gov/data/key_signup.html)
+
+Here is an example chunk to add to your `~/.Renviron` file to provide a
+system level environmental variable
+
+``` r
+## Add key to .Renviron
+CENSUS_KEY=<YOUR CENSUS API CODE HERE>
+```
+
+## Gragert 2013 Frequency Data
+
+- Obtain Gragert 2013 Frequency data for HLA-A,B,and C by visiting their
+  site [here](https://frequency.nmdp.org/)
+- You must login with an OpenID account (Yahoo, Google are provided by
+  default) and accept the data use click-through terms.
+- Once you’ve accepted the terms, download A,B,and C xlsx files, create
+  `inst/extdata/` and put them there as `A|B|C.xlsx`
+- Now you’ve got the data, you can run the
+  `data-raw/import_gragert2013_data.R` script to generate the data
+  files.
+
+## Automated Setup
+
+Instead of running the steps piecemeal below, you can use the
+`inst/scripts/initiate_package_with_external_data.R` script to automate
+the entire process. This script will check if the required files are
+present and, if so, will run all the necessary scripts in the correct
+order.
+
+To run the automated setup, use the following command in your R console:
+
+``` r
+source("inst/scripts/initiate_package_with_external_data.R")
+```
+
+## Catchment Spatial Files
+
+Run `data-raw/import_delNero2024_catchment.R`
+
+## Census Spatial Files
+
+Run `data-raw/import_census2020_tiger_shapefiles.R` **NB** - you may
+need to try multiple times due to Census Server limitations. Especially
+for the large county shape file that is ~80 Mb.
+
+Can take some time, ~30 minutes to download all state, county, and per
+state tract shape files
+
+## Prepare `data` files
+
+- Run `data-raw/nmdp_racegroups.R` - To create a data object of nmdp
+  race groups
+- Run `data-raw/valid_state_names.R` - To create vector of queriable
+  state names
+- Run `data-raw/us_pop_multirace_in_nmdp_codes.R` - To get US wide
+  population estimates
+- Run `data-raw/nmdp_hla_frequencies_us_2020_census_adjusted.R` to get
+  US wide estimates
+- Run `data-raw/census_adjusted_nmdp_hla_frequencies_by_state.R`
+- Run `data-raw/census_adjusted_nmdp_hla_frequencies_by_county.R`. Due
+  to the large number of {counties \* alleles}, by default this R script
+  only stores the top 20 most abundant HLAs by loci in the US. If you
+  want to run them all, or are looking for a specific one, you can
+  comment out the lines which filter the included alleles.
+- Run `data-raw/add_catchment_calculations_and_data.R`. - Note - this
+  will take a while as it works by census tract and by state. And there
+  are many census tracts! Be default it does this for A11, A02, and
+  B58:01. You can add as you see fit.
+
+# Examples
