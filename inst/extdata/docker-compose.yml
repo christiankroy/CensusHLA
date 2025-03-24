@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  rstudio:
+    image: rocker/verse:latest  # Includes RStudio Server + Quarto
+    container_name: rstudio-server
+    restart: unless-stopped
+    ports:
+      - "8787:8787"
+    volumes:
+      - <SOMEONE ON YOUR LOCAL MACHINE>:/home/rstudio # Becomes `/home/rstudio` in the container
+    environment:
+      - PASSWORD=password  # Change for security
+      - USERID=1001  # Ensure it matches your host user
+      - GROUPID=1001
+    shm_size: "2g"

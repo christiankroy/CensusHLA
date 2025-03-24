@@ -22,9 +22,12 @@ make_state_by_county_allele_frequency_map <-  function(
   state_code <- dplyr::filter(state_codes,STATE_NAME == state_name) |> dplyr::pull(STATEFP)
 
 
-  shapefile_path <-
-    "/mnt/efs/prj/christian.roy/tiger_2020_county_shape_files/tl_2020_us_county.shp"
-  sf_data <- st_read(shapefile_path)
+  shapefile_path <-    
+      paste0(
+        system.file(package = "CensusHLA"),
+        "/extdata/tiger_2020/county/tl_2020_us_county.shp")
+        
+  sf_data <- sf::st_read(shapefile_path)
 
   out_data <- state_county_frequencies |>
     dplyr::ungroup() |>

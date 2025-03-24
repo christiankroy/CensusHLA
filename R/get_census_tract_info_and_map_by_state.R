@@ -19,10 +19,10 @@ get_census_tract_info_and_map_by_state <- function(state_abbreviation, h3_resolu
   shape_file <-
     sf::st_read(
       paste0(
-        '/mnt/efs/prj/christian.roy/tiger_2020_census_tract_shape_files/tl_2020_',
+        system.file(package = "CensusHLA"),
+        "/extdata/tiger_2020/tract/tl_2020_",
         state_code,
-        '_tract.shp'
-      ),
+        '_tract.shp'),
       quiet = TRUE
     )
   fillers <-
