@@ -27,6 +27,8 @@ if (length(missing_files) > 0) {
   source("data-raw/valid_state_names.R")
   source("data-raw/us_pop_multirace_in_nmdp_codes.R")
   # US-wide
+  devtools::load_all()
+  #devtools::document(roclets = c('rd', 'collate', 'namespace', 'vignette'))
   source("data-raw/nmdp_hla_frequencies_us_2020_census_adjusted.R")
   # Futile logg that we're calculated by state
   futile.logger::flog.info("Calculating HLA frequencies by state")
@@ -44,15 +46,15 @@ if (length(missing_files) > 0) {
   } else {
     futile.logger::flog.info("census_adjusted_nmdp_hla_frequencies_by_county.rda already exists")
   }
+
   # Catchment
   if (!file_exists("data/a11_catchment_summed.rda")) {
     futile.logger::flog.info("Calculating a11 catchment areas")
-    source("data-raw/add_catchment_calculations_and_data.R") 
+    source("data-raw/add_catchment_calculations_and_data.R")
   } else {
-    futile.logger::flog.info("census_adjusted_nmdp_hla_frequencies_by_a11_catchment.rda already exists")
-  }  
+    futile.logger::flog.info("a11_catchment_summed.rda already exists")
+  }
   cat("All scripts have been successfully run.\n")
   # Now print that we're doing to document objects and functions in the package
   cat("Now documenting objects and functions in the package.\n")
-  devtools::document(roclets = c('rd', 'collate', 'namespace', 'vignette'))  
 }
