@@ -9,6 +9,7 @@
 #' @examples \dontrun{tx_5 <- get_census_tract_info_and_map_by_state(state_abbreviation = 'TX',h3_resolution = 5)}
 #'
 get_census_tract_info_and_map_by_state <- function(state_abbreviation, h3_resolution) {
+  library(ggplot2)
   # Flog that we're working with a given state
   futile.logger::flog.info(paste0("Working with state: ", state_abbreviation))
   # Find out the state code from the abbreviation
@@ -29,7 +30,7 @@ get_census_tract_info_and_map_by_state <- function(state_abbreviation, h3_resolu
     h3jsr::polygon_to_cells(geometry = shape_file$geometry,
                             res = h3_resolution,
                             simple = FALSE)
-  p1 <- ggplot() +
+  p1 <- ggplot2::ggplot() +
     geom_sf(data = shape_file, fill = "lightgreen", color = "black", alpha = 0.2) +
     labs(title = "H3 Hexagon", x = "Longitude", y = "Latitude") +
     theme_minimal()

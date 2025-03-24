@@ -8,6 +8,7 @@
 #'
 #' @examples \dontrun{plot_delNero2022_catchment_areas('A*11:01')}
 plot_delNero2022_catchment_areas <- function(query_allele, sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed) {
+  library(ggplot2)
   options(tigris_use_cache = TRUE)
   states <- rnaturalearth::ne_states(country = 'United States of America')
   continental_states <- as.data.frame(states) |>
@@ -19,7 +20,7 @@ plot_delNero2022_catchment_areas <- function(query_allele, sf_tract_centroids_fo
     sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed |>
     dplyr::mutate(name_short = substr(name, 1, 30)) |>
     dplyr::filter(!(name %in% c("University of Hawai'i Cancer Center"))) |>
-    ggplot(label = name) +
+    ggplot2::ggplot(label = name) +
     geom_sf(data = continental_us,
             alpha = 75,
             line = 'black') +
