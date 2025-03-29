@@ -2,13 +2,28 @@
 % Please edit documentation in R/us_counties_geo_data.R
 \name{us_counties_geo_data}
 \alias{us_counties_geo_data}
-\title{US Counties complementary geo data}
+\title{US Counties Complementary Geo Data}
 \usage{
 us_counties_geo_data()
 }
 \value{
-Data frame with us counties complementary
+A data frame containing US counties' complementary geographic data,
+including state and county names, FIPS codes, and GEOIDs.
 }
 \description{
-A function that returns county fips and GEOID information to complement census data
+This function retrieves and processes geographic data for US counties,
+including FIPS codes and GEOID information, to complement census data.
+}
+\details{
+The function uses the \code{tigris} package to fetch geographic data for states
+and counties, processes the data to include relevant columns, and merges
+state-level information with county-level data. The resulting data frame
+contains information such as state names, state abbreviations, county names,
+FIPS codes, and GEOIDs.
+}
+\examples{
+\dontrun{
+  counties_data <- us_counties_geo_data()
+  head(counties_data)
+}
 }

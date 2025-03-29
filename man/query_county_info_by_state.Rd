@@ -7,14 +7,19 @@
 query_county_info_by_state(query_state_abbreviation)
 }
 \arguments{
-\item{query_state_abbreviation}{}
+\item{query_state_abbreviation}{A character string representing the two-letter
+state abbreviation (e.g., "TX" for Texas).}
 }
 \value{
-A data frame of county codes by query state
+A data frame containing county codes and related information for the
+specified state.
 }
 \description{
-Query County 2020 Census Codes by State
+This function retrieves the 2020 Census county codes for a specified state
+using its state abbreviation. It fetches the state information, constructs
+the appropriate URL for the county codes file, and processes the data.
 }
 \examples{
+# Query county codes for Texas
 tx_codes <- query_county_info_by_state(query_state_abbreviation = "TX")
 }

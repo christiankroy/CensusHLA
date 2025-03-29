@@ -1,9 +1,9 @@
 #' get_all_state_info_by_census_tract
 #'
-#' Retrieves census tract information and map for all states.
-#'
-#' @return A list containing census tract information and map for each state.
-#' @export
+#' Retrieves census tract information and maps for all states in the United States.
+#' This function queries state codes, iterates through each state, and retrieves
+#' the corresponding census tract information and map. If an error occurs during
+#' the process, it is caught and logged, and
 get_all_state_info_by_census_tract <- function(){
   state_codes <- query_state_codes()
   state_info <- tryCatch(

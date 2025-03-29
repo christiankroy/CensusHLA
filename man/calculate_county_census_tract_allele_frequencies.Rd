@@ -3,7 +3,7 @@
 %   R/calculate_county_census_tract_allele_frequencies.R
 \name{calculate_county_census_tract_allele_frequencies}
 \alias{calculate_county_census_tract_allele_frequencies}
-\title{Calculate a nmdp Genotypic Frequency table by Census Tracks within a state, adjusted to 2020 Census Population Data}
+\title{Calculate a NMDP Genotypic Frequency Table by Census Tracts within a State}
 \usage{
 calculate_county_census_tract_allele_frequencies(
   state_abbreviation,
@@ -11,13 +11,19 @@ calculate_county_census_tract_allele_frequencies(
 )
 }
 \arguments{
-\item{state_abbreviation}{A State 2-letter postal code}
+\item{state_abbreviation}{A two-letter postal code representing the state.}
 
-\item{query_allele}{What HLA you'd like plotted from nmdp}
+\item{query_allele}{The HLA allele to be analyzed and plotted from NMDP data.}
 }
 \value{
-a list containing data to be plotted as a table and a ggplot plot of the census adjusted GF
+A list containing:
+\item{us_population_race_code_percentages}{A data frame with population percentages by race codes.}
+\item{nmdp_freq_subset}{A data frame with adjusted genotypic frequencies for the specified allele.}
+\item{sf_data}{Spatial data (shapefile) for the state's census tracts.}
+\item{shapefile_path}{The file path to the shapefile used.}
 }
 \description{
-Calculate a nmdp Genotypic Frequency table by Census Tracks within a state, adjusted to 2020 Census Population Data
+This function calculates a genotypic frequency table for a specified HLA allele
+by census tracts within a given state, adjusted to the 2020 Census population data.
+It also provides a shapefile for visualization.
 }

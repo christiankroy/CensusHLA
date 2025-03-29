@@ -2,24 +2,30 @@
 % Please edit documentation in R/make_state_by_county_allele_frequency_map.R
 \name{make_state_by_county_allele_frequency_map}
 \alias{make_state_by_county_allele_frequency_map}
-\title{Make a plot by State of County Population corrected genotypic frequencies}
+\title{Generate a State-Level Map of County Population-Corrected Genotypic Frequencies}
 \usage{
 make_state_by_county_allele_frequency_map(state_name, query_allele)
 }
 \arguments{
-\item{state_name}{The name of the state, e.g. 'Texas'}
+\item{state_name}{A string specifying the name of the state (e.g., 'Texas').}
 
-\item{query_allele}{The allele to query, e.g. 'A*11:01'}
+\item{query_allele}{A string specifying the allele to query (e.g., 'A*11:01').}
 }
 \value{
-an_object
+A list containing:
+\item{out_data}{A data frame with the processed allele frequency data for the specified state.}
+\item{p1}{A ggplot2 object representing the map of allele frequencies.}
 }
 \description{
-Make a plot by State of County Population corrected genotypic frequencies
+This function creates a map visualizing the genotypic frequencies of a specified allele
+across counties within a given state. The frequencies are adjusted based on census data.
 }
 \examples{
- \dontrun{ca_by_county <- make_state_by_county_allele_frequency_map(
-state_name = 'Texas',
-query_allele = 'A*11:01',
-)}
+\dontrun{
+result <- make_state_by_county_allele_frequency_map(
+  state_name = 'Texas',
+  query_allele = 'A*11:01'
+)
+print(result$p1)  # To display the map
+}
 }

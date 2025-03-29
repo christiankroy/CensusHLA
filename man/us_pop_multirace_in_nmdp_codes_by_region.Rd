@@ -3,7 +3,7 @@
 %   R/us_pop_multirace_adjusted_in_btm_codes_by_region.R
 \name{us_pop_multirace_in_nmdp_codes_by_region}
 \alias{us_pop_multirace_in_nmdp_codes_by_region}
-\title{Obtain US Population numbers by nmdp Racecodes and by Region}
+\title{Obtain US Population Numbers by NMDP Race Codes and Region}
 \usage{
 us_pop_multirace_in_nmdp_codes_by_region(
   in_region,
@@ -11,24 +11,40 @@ us_pop_multirace_in_nmdp_codes_by_region(
 )
 }
 \arguments{
-\item{in_region}{A string of either 'us', 'all states' (not useful), or a valid state name like 'Alaska'}
+\item{in_region}{A string specifying the region of interest. Valid values are:
+\itemize{
+\item "us" - Entire United States
+\item "all states" - All states (not recommended for use)
+\item "all counties" - All counties
+\item A valid state name (e.g., "Alaska")
+}}
 
-\item{census_region_level}{A string of either 'state' or 'county' to specify if the data for region should be divided by state or by county inside the state. The default is state.}
+\item{census_region_level}{A string specifying the granularity of the data:
+\itemize{
+\item "state" - Data divided by state (default)
+\item "county" - Data divided by county within a state
+}}
 }
 \value{
-Data Frame of per nmdp Race code population numbers per input region
+A data frame containing population numbers by NMDP race codes and region, with the following columns:
 \itemize{
-\item region - used in downstream tables to denote regions - this is only US
-\item nmdp_race_code - Value used by nmdp to denote races in their studies
-\item total_single_race_pop - Sum of individuals in given region with given race code - who reported being just 1 race
-\item total_multiple_race_pop - Sum of individuals in given region with given race code - who reported being >1 race
-\item total_2020_pop - Sum of individuals (regardless of # of reported races), that included the given race on their report, by census_region
-\item census_region - function used in this function to call up US 2020 census data can be adjusted for states - if a state is chosen it is put here
+\item region - The specified region (e.g., state or county)
+\item nmdp_race_code - NMDP race code
+\item total_single_race_pop - Population reporting a single race
+\item total_multiple_race_pop - Population reporting multiple races
+\item total_2020_pop - Total population (single + multiple race)
+\item census_region - Census region corresponding to the input region
 }
 }
 \description{
-Obtain US Population numbers by nmdp Racecodes and by Region
+This function retrieves and processes US Census 2020 population data to calculate population numbers
+by NMDP (National Marrow Donor Program) race codes and by region. It supports filtering by state or county
+and adjusts for individuals reporting multiple races.
 }
 \examples{
-us_pop_multirace_in_nmdp_codes_by_region(in_region = 'Alaska')
+# Get population data for Alaska
+us_pop_multirace_in_nmdp_codes_by_region(in_region = "Alaska")
+
+# Get population data for the entire US
+us_pop_multirace_in_nmdp_codes_by_region(in_region = "us")
 }

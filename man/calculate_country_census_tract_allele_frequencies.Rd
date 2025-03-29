@@ -8,21 +8,22 @@
 calculate_country_census_tract_allele_frequencies(query_allele)
 }
 \arguments{
-\item{query_allele}{The allele to query for frequencies.}
+\item{query_allele}{A character string representing the allele for which frequencies are to be calculated.}
 }
 \value{
 A list containing the following elements:
 \itemize{
-\item \code{us_population_race_code_percentages_by_tract}: A data frame with the allele frequencies for each census tract.
-\item \code{sf_tract_data_for_all_states}: A data frame with additional data for each census tract.
+\item \code{us_population_race_code_percentages_by_tract}: A data frame with the allele frequencies for each census tract across all states.
+\item \code{sf_tract_data_for_all_states}: A data frame with spatial and additional data for each census tract across all states.
 }
 }
 \description{
-This function calculates the allele frequencies for each census tract in all states of the country.
+This function calculates the allele frequencies for each census tract across all states in the country.
+It aggregates data from individual states and combines it into a unified result.
 }
 \examples{
 \dontrun{
-calculate_country_census_tract_allele_frequencies("A")
+calculate_country_census_tract_allele_frequencies("A*11:01")
 }
 
 }

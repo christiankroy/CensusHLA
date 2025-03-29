@@ -11,6 +11,8 @@ vignette: >
 library(CensusHLA)
 library(ggplot2)
 library(dplyr)
+# Set global chunk options
+knitr::opts_chunk$set(fig.height = 8, fig.width = 8)
 ```
 
 # Figures
