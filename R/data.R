@@ -85,3 +85,30 @@
 #'
 #' @source National Marrow Donor Program (NMDP) and US Census 2020 data. and nmdp_hla_frequencies_us_2020_census_adjusted.R
 'nmdp_hla_frequencies_by_race_us_2020_census_adjusted'
+
+
+#' NMDP Census Term Mapping
+#'
+#' This dataset provides a mapping of terms used in the NMDP (National Marrow Donor Program) census.
+#' It is used to standardize and interpret terminology within the context of HLA (Human Leukocyte Antigen) data analysis.
+#'
+#' @format A dataset containing mappings of terms used in the NMDP census.
+#' @usage data(nmdp_census_term_mapping)
+#' @details
+#' The `nmdp_census_term_mapping` dataset is essential for ensuring consistency in the interpretation
+#' of census terms related to HLA data. It is particularly useful in scenarios where standardized
+#' terminology is required for analysis or reporting.
+#'
+#' @examples
+#' # Load the dataset
+#' data(nmdp_census_term_mapping)
+#'
+#' # View the first few rows
+#' head(nmdp_census_term_mapping)
+#'
+#' # Example usage in analysis
+#' # (Assuming the dataset is a data frame with specific columns)
+#' summary(nmdp_census_term_mapping)
+#'
+#' @keywords datasets
+'nmdp_census_term_mapping'
