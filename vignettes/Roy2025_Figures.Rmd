@@ -19,7 +19,7 @@ knitr::opts_chunk$set(fig.height = 8, fig.width = 8)
 
 ## Figure 1
 
-### A - Continental US A11 [X]
+### A - Continental US A11 
 
 ```{r a11 by state}
 state_frequencies <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_state |> dplyr::filter(allele == 'A*11:01')
@@ -44,7 +44,7 @@ gg_state
 ```
 
 
-### B - A11 by County [X]
+### B - A11 by County 
 
 
 ```{r a11 by us county}
@@ -119,7 +119,7 @@ gg_a11_by_county
 
 ### C - NDMP Correlations
 
-### D - A11 by CA County [X]
+### D - A11 by CA County 
 
 
 
@@ -155,7 +155,7 @@ gg_a11_in_ca
 ```
 
 
-### E A11 by CA by H4 Hexagon [X]
+### E A11 by CA by H4 Hexagon 
 
 
 ```{r ca by hexagon prep}
@@ -170,7 +170,7 @@ ca_4$p1
 
 
 
-### F A11 Catchment [X]
+### F A11 Catchment 
 
 ```{r a11 catchment, fig.height = 8, fig.width = 8}
 gg_catchment <- plot_delNero2022_catchment_areas(
@@ -186,7 +186,7 @@ gg_catchment
 
 ## Figure 2 [X}]
 
-## A - B:58:01 by County [X]
+## A - B:58:01 by County 
 
 ```{r b58 by county}
 
@@ -258,7 +258,7 @@ gg_b58_by_county
 ```
 
 
-## B - B58:01 in MS by County [X]
+## B - B58:01 in MS by County 
 
 ```{r b58 by ms county}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
@@ -307,7 +307,7 @@ ms_4$p1
 ```
 
 
-## D - B58:01 Catchment [X]
+## D - B58:01 Catchment 
 
 ```{r b58 catchment, fig.height = 8, fig.width = 8}
 gg_catchment <- plot_delNero2022_catchment_areas(
@@ -320,22 +320,44 @@ gg_catchment
 
 # Tables
 
-## Table 1: United States 2020 Census Adjusted HLA-A*11:01 Genotypic Frequencies
-
-TODO - This needs to be fixed!
+## Table 1: United States 2020 Census Adjusted HLA-A*11:01 Genotypic Frequencies 
 
 ```{r}
-CensusHLA::nmdp_hla_frequencies_by_race_us_2020_census_adjusted |> 
-  dplyr::filter(allele == 'A*11:01') |> 
-  dplyr::select(allele,nmdp_race_code,us_2020_percent_pop,nmdp_calc_gf,us_2020_nmdp_gf) |> 
-  dplyr::arrange(desc(us_2020_percent_pop))  
-
-
+CensusHLA::us_pop_multirace_in_nmdp_codes |> 
+  dplyr::left_join(
+  CensusHLA::nmdp_hla_frequencies_by_race_us_2020_census_adjusted |> 
+    dplyr::filter(allele == 'A*11:01') |> 
+    dplyr::select(allele, allele, nmdp_race_code,us_2020_percent_pop,nmdp_calc_gf,us_2020_nmdp_gf) |> 
+    dplyr::arrange(desc(us_2020_percent_pop))
+  ) |> 
+  # Convert percentages and gfs to percentages
+  dplyr::mutate(
+    us_2020_percent_pop = us_2020_percent_pop * 100,
+    nmdp_calc_gf = nmdp_calc_gf * 100,
+    us_2020_nmdp_gf = us_2020_nmdp_gf * 100
+  ) |>
+  # Round percentages and gf to 1 digit after decimal
+  dplyr::mutate(
+    us_2020_percent_pop = round(us_2020_percent_pop, 1),
+    nmdp_calc_gf = round(nmdp_calc_gf, 1),
+    us_2020_nmdp_gf = round(us_2020_nmdp_gf, 1)
+  ) |>
+  dplyr::select(
+    `Ethnic Code` = nmdp_race_code,
+    `Allele` = allele,
+    `Single Race Population` =  total_single_race_pop,
+    `Multi-Race Population ` = total_multiple_race_pop,
+    `Total Population` = total_2020_pop,
+    `Percentage of Total Pop` = us_2020_percent_pop,
+    `NMDP Calcualted GF` = nmdp_calc_gf,
+    `Population-Adjusted GF` = us_2020_nmdp_gf
+  ) 
+  
 ```
 
 
 
-## Table 2: HLA-A*11:01 Population-adjusted genotypic frequencies for top 11 NCI Catchment areas. [X]
+## Table 2: HLA-A*11:01 Population-adjusted genotypic frequencies for top 11 NCI Catchment areas. 
 
 ```{r a11 catchment table}
 CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed |> dplyr::select(-geometry) |> dplyr::mutate(patient_pop = total_2020_pop * us_2020_nmdp_gf_sum) |>  dplyr::arrange(desc(patient_pop)) |> DT::datatable(
@@ -351,7 +373,7 @@ CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment
 ```
 
 
-## Supplemental 1 - California County population-adjusted HLA-A*11:01 Genotypic frequencies [X]
+## Supplemental 1 - California County population-adjusted HLA-A*11:01 Genotypic frequencies 
 
 ```{r supp table 1 a11 in ca county}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
@@ -376,9 +398,46 @@ out_data
 
 ## Supplemental 2 - United States 2020 Census Adjusted HLA-B*58:01 Genotypic Frequencies for Mississippi
 
-TODO
+```{r}
+CensusHLA::us_pop_multirace_in_nmdp_codes |> 
+  dplyr::left_join(
+  CensusHLA::census_adjusted_nmdp_hla_frequencies_by_state |> dplyr::filter(allele == 'B*58:01') |> 
+  dplyr::filter(census_region == 'Mississippi') |> 
+    dplyr::select(allele,census_region,nmdp_race_code,us_2020_percent_pop,nmdp_calc_gf,us_2020_nmdp_gf) |> 
+    dplyr::arrange(desc(us_2020_percent_pop))
+  ) |> 
+  # Convert percentages and gfs to percentages
+  dplyr::mutate(
+    us_2020_percent_pop = us_2020_percent_pop * 100,
+    nmdp_calc_gf = nmdp_calc_gf * 100,
+    us_2020_nmdp_gf = us_2020_nmdp_gf * 100
+  ) |>
+  # Round percentages and gf to 1 digit after decimal
+  dplyr::mutate(
+    us_2020_percent_pop = round(us_2020_percent_pop, 1),
+    nmdp_calc_gf = round(nmdp_calc_gf, 1),
+    us_2020_nmdp_gf = round(us_2020_nmdp_gf, 1)
+  ) |>
+  dplyr::select(
+    `Region` = census_region,
+    `Ethnic Code` = nmdp_race_code,
+    `Allele` = allele,
+    `Single Race Population` =  total_single_race_pop,
+    `Multi-Race Population ` = total_multiple_race_pop,
+    `Total Population` = total_2020_pop,
+    `Percentage of Total Pop` = us_2020_percent_pop,
+    `NMDP Calcualted GF` = nmdp_calc_gf,
+    `Population-Adjusted GF` = us_2020_nmdp_gf
+  ) 
 
-## Supplemental 3 - Mississippi County population-adjusted HLA-B*58:01 Genotypic frequencies [X]
+
+  #dplyr::select(allele, us_2020_nmdp_gf) |> 
+  #dplyr::summarize(gf = sum(us_2020_nmdp_gf))
+```
+
+
+
+## Supplemental 3 - Mississippi County population-adjusted HLA-B*58:01 Genotypic frequencies 
 
 ```{r Supp3 - b58 by mS county}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
@@ -401,8 +460,7 @@ out_data
 ```
 
 
-
-## Supplemental 4 [X]
+## Supplemental 4 
 
 
 ```{r b58 catchment table}
