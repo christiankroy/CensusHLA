@@ -2,7 +2,7 @@
 title: "Roy 2025 Figures and tables"
 output: rmarkdown::html_vignette 
 vignette: > 
-  %\VignetteIndexEntry{Roy 2025 Figures} 
+  %\VignetteIndexEntry{Roy 2025 Figures and tables} 
   %\VignetteEngine{knitr::rmarkdown} 
   %\VignetteEncoding{UTF-8}
 ---
