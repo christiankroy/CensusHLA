@@ -3,22 +3,43 @@
 \docType{data}
 \name{nmdp_hla_frequencies_us_2020_census_adjusted}
 \alias{nmdp_hla_frequencies_us_2020_census_adjusted}
-\title{nmdp_hla_frequencies_us_2020_census_adjusted}
+\title{NMDP HLA Frequencies Adjusted by US 2020 Census}
 \format{
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2341 rows and 6 columns.
+
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2341 rows and 6 columns.
 }
 \source{
+See \code{data-raw/adjust_nmdp_for_us_census.R}
+
 data-raw/adjust_nmdp_for_us_census.R
 }
 \usage{
 nmdp_hla_frequencies_us_2020_census_adjusted
+
+nmdp_hla_frequencies_us_2020_census_adjusted
 }
 \description{
+A dataset containing NMDP allele frequencies adjusted by race according to the 2020 US Census.
+The data provides a US-level summary of race-adjusted allelic frequencies, including calculated genotypic frequencies.
+
 nmdp allele frequencies  adjusted by race according to the US census. This table contains those race-adjusted alleleic frequencies summed up so we have a us-level summarization
 }
 \section{Fields}{
 
 \describe{
+\item{\code{region}}{The region considered (e.g., US-level).}
+
+\item{\code{loci}}{The HLA loci (e.g., A, B, or C).}
+
+\item{\code{allele}}{The specific HLA allele.}
+
+\item{\code{af}}{US Census-adjusted allelic frequency, calculated as the sum of race-adjusted frequencies.}
+
+\item{\code{calc_gf}}{Genotypic frequencies calculated from the adjusted allelic frequencies.}
+
+\item{\code{hla_source}}{The source of the data, indicating it was derived from \code{us_census_adjusted_nmdp_summed_by_race}.}
+
 \item{\code{region}}{\itemize{
 \item What region was considered
 }}

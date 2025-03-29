@@ -1,9 +1,6 @@
-nmdp_census_code_freq_names <-
-  unique(nmdp_freq$nmdp_race_code)[!(unique(nmdp_freq$nmdp_race_code) %in% unique(nmdp_racegroups$nmdp_race_code))]
-
 nmdp_freq_subset <-
   nmdp_hla_frequencies_by_race |>
-  dplyr::filter(nmdp_race_code %in% nmdp_census_code_freq_names)
+  dplyr::filter(nmdp_race_code %in% c("AFA","API","CAU","HIS","NAM"))
 
 us_population_race_code_percentages <-
   us_pop_multirace_in_nmdp_codes |>
@@ -26,7 +23,7 @@ nmdp_hla_frequencies_by_race_us_2020_census_adjusted <- nmdp_freq_subset |>
     #dplyr::mutate(us_2020_nmdp_gf = format(us_2020_nmdp_gf, scientific = FALSE)) |>
     dplyr::arrange(desc(us_2020_nmdp_gf))
 
-
+usethis::use_data(nmdp_hla_frequencies_by_race_us_2020_census_adjusted, overwrite = TRUE)
 
 nmdp_hla_frequencies_us_2020_census_adjusted <-
   # And now we will sum up the af by region and allele to give a us-level prepared dataset
@@ -48,4 +45,6 @@ nmdp_hla_frequencies_us_2020_census_adjusted <-
   )
 
 usethis::use_data(nmdp_hla_frequencies_us_2020_census_adjusted, overwrite = TRUE)
+
+
 

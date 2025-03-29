@@ -12,6 +12,8 @@ obtain_census_adjusted_nmdp_hla_frequencies_by_region(
 }
 \arguments{
 \item{in_region}{A string of either 'us', 'all states' (not useful), or a valid state name like 'Alaska'}
+
+\item{region_level}{A string of either 'state' or 'county' - default is 'state'}
 }
 \value{
 Data Frame of US Census Adjusted HLA Alleleic Frequencies
