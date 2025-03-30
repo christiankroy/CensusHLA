@@ -1,7 +1,7 @@
 #' Obtain US Population Numbers by NMDP Race Codes and Region
 #'
-#' This function retrieves and processes US Census 2020 population data to calculate population numbers 
-#' by NMDP (National Marrow Donor Program) race codes and by region. It supports filtering by state or county 
+#' This function retrieves and processes US Census 2020 population data to calculate population numbers
+#' by NMDP (National Marrow Donor Program) race codes and by region. It supports filtering by state or county
 #' and adjusts for individuals reporting multiple races.
 #'
 #' @param in_region A string specifying the region of interest. Valid values are:
@@ -26,12 +26,10 @@
 #'     \item census_region - Census region corresponding to the input region
 #'   }
 #' @export
-#' @examples 
+#' @examples
 #' # Get population data for Alaska
 #' us_pop_multirace_in_nmdp_codes_by_region(in_region = "Alaska")
-#' 
-#' # Get population data for the entire US
-#' us_pop_multirace_in_nmdp_codes_by_region(in_region = "us")
+#'
 us_pop_multirace_in_nmdp_codes_by_region <- function(in_region, census_region_level = "state") {
   # Validate the input for 'in_region'
   if (!(in_region %in% c("us", "all states", "all counties", valid_state_names))) {

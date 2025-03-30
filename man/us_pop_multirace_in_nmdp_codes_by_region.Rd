@@ -45,6 +45,4 @@ and adjusts for individuals reporting multiple races.
 # Get population data for Alaska
 us_pop_multirace_in_nmdp_codes_by_region(in_region = "Alaska")
 
-# Get population data for the entire US
-us_pop_multirace_in_nmdp_codes_by_region(in_region = "us")
 }
