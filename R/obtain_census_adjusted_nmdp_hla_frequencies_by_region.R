@@ -9,6 +9,7 @@
 #'   \item nmdp_calc_gf - Genotypic frequency calculated righ toff the allelic frequency using hardy-weinburg
 #'   \item region - used in downstream tables to denote regions - this is only US
 #'   \item census_region - function used in this function to call up US 2020 census data can be adjusted for states - if a state is chosen it is put here
+#'   \item total_2020_pop - total population in a given region
 #'   \item us_2020_percent_pop - percentage of the overall population with the given nmdp code in a given region. Should sum close to 1 for a specific HLA Allele
 #'   \item us_2020_nmdp_gf - The US-Census race-adjusted genotypic frequency value - used in downstream applications
 #' }
@@ -53,6 +54,7 @@ obtain_census_adjusted_nmdp_hla_frequencies_by_region <- function(in_region, reg
           region,
           census_region,
           nmdp_race_code,
+          total_2020_pop,
           us_2020_percent_pop
         ),
         by = c("region", "nmdp_race_code")

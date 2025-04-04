@@ -2,7 +2,6 @@
 
 export(calculate_country_census_tract_allele_frequencies)
 export(calculate_county_census_tract_allele_frequencies)
-export(get_all_state_info_by_census_tract)
 export(get_census_tract_info_and_map_by_state)
 export(make_county_census_tract_allele_frequency_map)
 export(make_state_by_county_allele_frequency_map)
@@ -16,3 +15,5 @@ export(us_counties_geo_data)
 export(us_pop_multirace_in_nmdp_codes_by_region)
 import(dplyr)
 import(sf)
+importFrom(tigris,counties)
+importFrom(tigris,states)

@@ -1,5 +1,39 @@
 #' Valid State Names
+#'
+#' @description A dataset containing the list of valid state names used when interacting with the US Census API. 
+#' This ensures consistency and accuracy when querying state-level data.
+#' 
 #' @source US Census
+"valid_state_names"
+
+#' US Population by Multi-Race in NMDP Codes
+#'
+#' @description A dataset providing the 2020 US Census population counts categorized by NMDP race codes. 
+#' It includes both single-race and multi-race populations, with fractional adjustments for individuals identifying with multiple races.
+#' 
+#' @field nmdp_race_code NMDP race code.
+#' @field total_single_race_pop Total population identifying as only that race according to the 2020 Census.
+#' @field total_multiple_race_pop Total population identifying as multiple races, adjusted fractionally. 
+#'        For example, a person identifying as two races contributes 0.5 to each race's count.
+#' @field total_2020_pop Total 2020 Census population, including both single-race and multi-race individuals.
+#' 
+#' @source US Census - see `data-raw/import_us_census_data.R`
+"us_pop_multirace_in_nmdp_codes"
+
+#' NMDP HLA Frequencies Adjusted by US 2020 Census
+#'
+#' @description A dataset containing NMDP allele frequencies adjusted by race according to the 2020 US Census. 
+#' The data provides a US-level summary of race-adjusted allelic frequencies, including calculated genotypic frequencies.
+#' 
+#' @field region The region considered (e.g., US-level).
+#' @field loci The HLA loci (e.g., A, B, or C).
+#' @field allele The specific HLA allele.
+#' @field af US Census-adjusted allelic frequency, calculated as the sum of race-adjusted frequencies.
+#' @field calc_gf Genotypic frequencies calculated from the adjusted allelic frequencies.
+#' @field hla_source The source of the data, indicating it was derived from `us_census_adjusted_nmdp_summed_by_race`.
+#' 
+#' @source See `data-raw/adjust_nmdp_for_us_census.R`
+"nmdp_hla_frequencies_us_2020_census_adjusted"
 #' @description List of the valid state names when using the Census API
 'valid_state_names'
 
@@ -23,75 +57,58 @@
 #' @field hla_source - us_census_adjusted_nmdp_summed_by_race
 'nmdp_hla_frequencies_us_2020_census_adjusted'
 
-#' census_adjusted_nmdp_hla_frequencies_by_state
-#' @source data-raw/census_adjusted_nmdp_hla_frequencies_by_state.R and obtain_census_adjusted_nmdp_hla_frequencies_by_region
-#' @description - US Census-adjusted per nmdp race group hla allelic frequencies by State
-#' @field region - What region
-#' @field loci - what HLA loci
-#' @field allele - what HLA allele
-#' @field is_g - is group allele
-#' @field nmdp_race_code - nmdp race code
-#' @field nmdp_af - nmdp allelic frequiency
-#' @field nmdp_calc_gf - nmdp genotypic frequency
-#' @field fips - State fips
-#' @field census_region - census region - in this case the state
-#' @field us_2020_percent_pop - Percent of given race code population within the state
-#' @field us_2020_nmdp_gf - adjusted genotypic frequency based on race pop percentage in the state
-'census_adjusted_nmdp_hla_frequencies_by_state'
 
-#' census_adjusted_nmdp_hla_frequencies_by_county
-#' @source data-raw/census_adjusted_nmdp_hla_frequencies_by_state.R and obtain_census_adjusted_nmdp_hla_frequencies_by_region. This set is filter to contain the 10 more frequent alleles adjusted by population in the US.
-#' @description - US Census-adjusted per nmdp race group hla allelic frequencies by State
-#' @field state US State
-#' @field region - What region
-#' @field loci - what HLA loci
-#' @field allele - what HLA allele
-#' @field is_g - is group allele
-#' @field nmdp_race_code - nmdp race code
-#' @field nmdp_af - nmdp allelic frequiency
-#' @field nmdp_calc_gf - nmdp genotypic frequency
-#' @field fips - County fips
-#' @field census_region - census region - in this case the county
-#' @field us_2020_percent_pop - Percent of given race code population within the state
-#' @field us_2020_nmdp_gf - adjusted genotypic frequency based on race pop percentage in the state
-#' @field county US County
-'census_adjusted_nmdp_hla_frequencies_by_county'
-
-#' A*11:01 Catchment Summed
-#' @seealso data-raw/add_catchment_calculations_and_data.R
-#' @source delNero2022
-'a11_catchment_summed'
-
-#' NMDP HLA Frequencies and GF by Race code
-#' @source data-raw/import_gragert2013_data.R
-#' @field region description of the region
-#' @field loci HLA loci
-#' @field allele HLA allele of interest
-#' @field is_g is a group allele
-#' @field nmdp_race_code the original catagory from nmdp
-#' @field nmdp_af Alleleic frequency
-#' @field nmdo_calc_gf Genotypic frequency (calculated from AF)
-'nmdp_hla_frequencies_by_race'
-
-#' NMDP Race Groups
+#' NMDP HLA Frequencies by Race (US 2020 Census Adjusted)
 #'
-#' This dataset contains the race groups as defined by the National Marrow Donor Program (NMDP).
+#' This dataset contains HLA allele frequencies adjusted based on the 2020 US Census data. 
+#' It provides information on allele frequencies across different racial groups as defined 
+#' by the National Marrow Donor Program (NMDP).
 #'
-#' @format A tibble with 21 rows and 7 columns:
+#' @format A data frame with the following columns:
 #' \describe{
-#'   \item{nmdp_broad_race_group}{Character. The broad race group as defined by NMDP.}
-#'   \item{nmdp_race_code}{Character. The race code as defined by NMDP.}
-#'   \item{Detailed Race/ Ethnic Description}{Character. A detailed description of the race or ethnic group.}
-#'   \item{Count}{Numeric. The count of individuals in this race group.}
-#'   \item{Typed C}{Numeric. The count of individuals typed for the C gene.}
-#'   \item{Typed DQB1}{Numeric. The count of individuals typed for the DQB1 gene.}
-#'   \item{Typed DRB3/4/5}{Numeric. The count of individuals typed for the DRB3/4/5 gene.}
+#'   \item{region}{Geographical region associated with the data.}
+#'   \item{loci}{HLA loci (e.g., A, B, C, DRB1).}
+#'   \item{allele}{HLA allele name.}
+#'   \item{is_g}{Indicator if the allele is a G group (logical).}
+#'   \item{nmdp_race_code}{Race code as defined by the NMDP.}
+#'   \item{nmdp_af}{Allele frequency as reported by the NMDP.}
+#'   \item{nmdp_calc_gf}{Genotype frequency calculated by the NMDP.}
+#'   \item{us_2020_percent_pop}{Percentage of the US population in 2020 for the given race.}
+#'   \item{us_2020_nmdp_gf}{Genotype frequency adjusted for the 2020 US Census population.}
 #' }
-#' @source National Marrow Donor Program (NMDP)
+#'
+#' @details
+#' This dataset is useful for analyzing HLA allele distributions and their representation 
+#' across different racial groups in the US, adjusted for the 2020 Census population data. 
+#' It can be used in studies related to population genetics, transplantation, and donor 
+#' matching.
+#'
+#' @source National Marrow Donor Program (NMDP) and US Census 2020 data. and nmdp_hla_frequencies_us_2020_census_adjusted.R
+'nmdp_hla_frequencies_by_race_us_2020_census_adjusted'
+
+
+#' NMDP Census Term Mapping
+#'
+#' This dataset provides a mapping of terms used in the NMDP (National Marrow Donor Program) census.
+#' It is used to standardize and interpret terminology within the context of HLA (Human Leukocyte Antigen) data analysis.
+#'
+#' @format A dataset containing mappings of terms used in the NMDP census.
+#' @usage data(nmdp_census_term_mapping)
+#' @details
+#' The `nmdp_census_term_mapping` dataset is essential for ensuring consistency in the interpretation
+#' of census terms related to HLA data. It is particularly useful in scenarios where standardized
+#' terminology is required for analysis or reporting.
+#'
 #' @examples
 #' # Load the dataset
-#' data(nmdp_racegroups)
+#' data(nmdp_census_term_mapping)
 #'
-#' # Display the first few rows of the dataset
-#' head(nmdp_racegroups)
-'nmdp_racegroups'
+#' # View the first few rows
+#' head(nmdp_census_term_mapping)
+#'
+#' # Example usage in analysis
+#' # (Assuming the dataset is a data frame with specific columns)
+#' summary(nmdp_census_term_mapping)
+#'
+#' @keywords datasets
+'nmdp_census_term_mapping'

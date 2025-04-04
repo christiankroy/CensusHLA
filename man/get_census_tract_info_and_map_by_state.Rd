@@ -2,26 +2,35 @@
 % Please edit documentation in R/get_census_tract_info_and_map_by_state.R
 \name{get_census_tract_info_and_map_by_state}
 \alias{get_census_tract_info_and_map_by_state}
-\title{Get Census Tract Info and Map by State}
+\title{Get Census Tract Information and Map by State}
 \usage{
 get_census_tract_info_and_map_by_state(state_abbreviation, h3_resolution)
 }
 \arguments{
-\item{state_abbreviation}{A two-letter state abbreviation, e.g. 'TX'}
+\item{state_abbreviation}{A two-letter state abbreviation, e.g., 'TX'.}
 
-\item{h3_resolution}{The resolution of the H3 hexagons to use. Must be an integer between 0 and 15. e.g. '5'}
+\item{h3_resolution}{The resolution of the H3 hexagons to use. Must be an integer between 0 and 15, e.g., 5.}
 }
 \value{
-an_object
+A list containing:
+\describe{
+\item{sf_data}{The spatial data (sf object) for the census tracts.}
+\item{p1}{A ggplot object showing the census tracts with H3 hexagons.}
+\item{centroid_plot}{A ggplot object showing the centroids of the census tracts.}
+\item{centroid_hex_assignments}{A data frame mapping centroids to H3 hexagons.}
+\item{tract_centroids_with_hexongs}{A combined sf object of centroids and their corresponding H3 hexagons.}
+\item{shape_centroids}{The centroids of the census tracts as an sf object.}
+}
 }
 \description{
-Get Census Tract Info and Map by State
+This function retrieves census tract information for a specified state and maps it using H3 hexagons at a given resolution.
 }
 \examples{
-\dontrun{tx_5 <- 
-get_census_tract_info_and_map_by_state(
-state_abbreviation = 'TX',
-h3_resolution = 5)
+\dontrun{
+tx_5 <- get_census_tract_info_and_map_by_state(
+  state_abbreviation = 'TX',
+  h3_resolution = 5
+)
 }
 
 }

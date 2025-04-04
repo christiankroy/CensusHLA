@@ -6,9 +6,9 @@
 \usage{
 get_all_state_info_by_census_tract()
 }
-\value{
-A list containing census tract information and map for each state.
-}
 \description{
-Retrieves census tract information and map for all states.
+Retrieves census tract information and maps for all states in the United States.
+This function queries state codes, iterates through each state, and retrieves
+the corresponding census tract information and map. If an error occurs during
+the process, it is caught and logged, and
 }

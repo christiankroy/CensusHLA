@@ -3,7 +3,7 @@
 %   R/summarize_tract_genotypic_frequencies_by_h3_hexagon.R
 \name{summarize_tract_genotypic_frequencies_by_h3_hexagon}
 \alias{summarize_tract_genotypic_frequencies_by_h3_hexagon}
-\title{Summarize Genotypic frequency by H3 Hexagon and State}
+\title{Summarize Genotypic Frequency by H3 Hexagon and State}
 \usage{
 summarize_tract_genotypic_frequencies_by_h3_hexagon(
   state_abbreviation,
@@ -12,18 +12,24 @@ summarize_tract_genotypic_frequencies_by_h3_hexagon(
 )
 }
 \arguments{
-\item{state_abbreviation}{The state abbreviation, e.g. 'MA'}
+\item{state_abbreviation}{A string representing the state abbreviation, e.g., 'MA'.}
 
-\item{query_allele}{The allele to query, e.g. 'A*11:01'}
+\item{query_allele}{A string representing the allele to query, e.g., 'A*11:01'.}
 
-\item{h3_resolution}{The resolution of the H3 hexagon, e.g. 5}
+\item{h3_resolution}{An integer specifying the resolution of the H3 hexagon, e.g., 5.}
 }
 \value{
-an_object
+A list containing:
+\item{genotypic_frequencies_by_hexon}{A data frame with genotypic frequencies summarized by H3 hexagon.}
+\item{p1}{A ggplot object visualizing the genotypic frequencies by H3 hexagon.}
 }
 \description{
-Summarize Genotypic frequency by H3 Hexagon and State
+This function calculates and visualizes the genotypic frequencies of a specified allele
+across H3 hexagons within a given state. It uses census tract data, H3 hexagon resolution,
+and NMDP HLA frequencies to compute adjusted genotypic frequencies.
 }
 \examples{
-\dontrun{summarize_tract_genotypic_frequencies_by_h3_hexagon('MA','A*11:01',5)}
+\dontrun{
+summarize_tract_genotypic_frequencies_by_h3_hexagon('MA', 'A*11:01', 5)
+}
 }

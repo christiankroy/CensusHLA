@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_county_census_tract_allele_frequency_map.R
 \name{make_county_census_tract_allele_frequency_map}
 \alias{make_county_census_tract_allele_frequency_map}
-\title{Make a plot by County of Census Tract Population corrected genotypic frequencies}
+\title{Generate a Map of Census Tract Population-Corrected Genotypic Frequencies by County}
 \usage{
 make_county_census_tract_allele_frequency_map(
   state_abbreviation,
@@ -12,25 +12,30 @@ make_county_census_tract_allele_frequency_map(
 )
 }
 \arguments{
-\item{state_abbreviation}{2-letter state abbreviation. E.g. 'TX'}
+\item{state_abbreviation}{A 2-letter state abbreviation. E.g., 'TX'.}
 
-\item{county_code}{3-digit county code. E.g. '157'}
+\item{county_code}{A 3-digit county code. E.g., '157'.}
 
-\item{county_name}{County name. E.g. 'Fort Bend'}
+\item{county_name}{The name of the county. E.g., 'Fort Bend'.}
 
-\item{query_allele}{HLA allele to query. E.g. 'A*11:01'}
+\item{query_allele}{The HLA allele to query. E.g., 'A*11:01'.}
 }
 \value{
-an_object
+A list containing:
+\item{out_data}{A data frame with processed allele frequency data for the specified county.}
+\item{p1}{A ggplot2 object representing the map of genotypic frequencies.}
 }
 \description{
-Make a plot by County of Census Tract Population corrected genotypic frequencies
+This function creates a map visualizing the genotypic frequencies of a specified HLA allele
+across census tracts within a given county. The frequencies are adjusted based on population data.
 }
 \examples{
- \dontrun{texus_fort_bend <- make_county_census_tract_allele_frequency_map(
-state_abbreviation = 'TX',
-query_allele = 'A*11:01',
-county_code = '157',
-county_name = 'Fort Bend'
-)}
+\dontrun{
+texus_fort_bend <- make_county_census_tract_allele_frequency_map(
+  state_abbreviation = 'TX',
+  query_allele = 'A*11:01',
+  county_code = '157',
+  county_name = 'Fort Bend'
+)
+}
 }

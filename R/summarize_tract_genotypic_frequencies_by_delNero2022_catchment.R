@@ -1,5 +1,3 @@
-
-
 #' Summarize Tract Genotypic Frequencies by delNero2022 Catchment
 #'
 #' This function calculates the genotypic frequencies for a given query allele

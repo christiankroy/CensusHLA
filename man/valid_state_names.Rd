@@ -6,14 +6,21 @@
 \title{Valid State Names}
 \format{
 An object of class \code{character} of length 52.
+
+An object of class \code{character} of length 52.
 }
 \source{
 US Census
 }
 \usage{
 valid_state_names
+
+valid_state_names
 }
 \description{
+A dataset containing the list of valid state names used when interacting with the US Census API.
+This ensures consistency and accuracy when querying state-level data.
+
 List of the valid state names when using the Census API
 }
 \keyword{datasets}
