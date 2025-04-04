@@ -15,6 +15,8 @@ knitr::opts_chunk$set(
 
 # CensusHLA
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15148807.svg)](https://doi.org/10.5281/zenodo.15148807)
+
 CensusHLA is an R package designed to facilitate the analysis of HLA allele frequencies across the United States using census data and other external datasets. The package provides tools for importing, processing, and visualizing HLA frequency data, as well as integrating it with spatial and demographic information. It is particularly useful for researchers working in population genetics, immunogenetics, and public health.
 
 ![A11 by County](man/figures/a11_by_county.png){width=50%}
