@@ -8,7 +8,6 @@ inst/extdata/tiger_2020
 inst/extdata/A.xlsx
 inst/extdata/B.xlsx
 inst/extdata/C.xlsx
-docs/*
 CensusHLA.Rproj
 data/nmdp_hla_frequencies_by_race.rda
 data/census_adjusted_nmdp_hla_frequencies_by_state.rda
