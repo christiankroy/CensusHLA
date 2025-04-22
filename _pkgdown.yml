@@ -1,6 +1,3 @@
 url: https://affini-t-tx.github.io/CensusHLA/
 template:
   bootstrap: 5
-  bootswatch: cosmo
-  light-switch: true
-

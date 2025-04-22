@@ -17,8 +17,6 @@ format:
     caption: none
     df_print: paged
     toctitle: "Contents"
-    theme: cosmo
-    embed-resources: true
 ---
 
 ```{r setup, include=FALSE}
