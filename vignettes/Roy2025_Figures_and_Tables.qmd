@@ -3,10 +3,6 @@ title: "Roy 2025 Figures and tables"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 format:
   html:
-    toc: true
-    toc_depth: 4
-    toc_float: yes
-    embed-resources: true
     code-fold: true
     warning: false
     error: false
@@ -28,7 +24,7 @@ library(dplyr)
 
 ## 1A - Continental US A11 
 
-```{r a11 by state figure}
+```{r a11 by state prep}
 state_frequencies <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_state |> dplyr::filter(allele == 'A*11:01')
 
 out_data <- state_frequencies |>
@@ -46,7 +42,10 @@ gg_state <- usmap::plot_usmap(
   linewidth = 0.1
 ) +
   viridis::scale_fill_viridis(option = "plasma", direction = 1)
+```
 
+
+```{r a11_by_state_plot}
 gg_state
 ```
 
@@ -142,7 +141,7 @@ gg_a11_by_county <-
 ```
 
 
-```{r a11 by us county plot}
+```{r a11_by_us_county_plot}
 gg_a11_by_county
 ```
 
@@ -184,13 +183,13 @@ NMDP Values are not publicly available for privacy reasons.  Please contact co-A
 
 ## 1D - A11:01 by CA County 
 
-```{r a11 by ca county}
+```{r a11_by_ca_county}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(state %in% c('California')) |> 
   dplyr::filter(allele %in% c('A*11:01','A*02:01','A*03:01'))
 ```
 
-```{r a11 by ca county plot}
+```{r a11_by_ca_county_plot}
 out_data <- info_by_county |>
   dplyr::ungroup() |>
   dplyr::filter(allele == 'A*11:01') |>
@@ -216,7 +215,7 @@ gg_a11_in_ca
 ```
 
 
-```{r a11 by ca county table}
+```{r a11_by_ca_county_table}
 out_data |> 
   dplyr::ungroup() |> 
   dplyr::mutate(gf = round(gf,4)) |> 
@@ -260,7 +259,7 @@ ca_4 <- CensusHLA::summarize_tract_genotypic_frequencies_by_h3_hexagon(
 
 ```
 
-```{r ca by hexagon plot}
+```{r ca_by_hexagon_plot}
 ca_4$p1
 ```
 
@@ -391,7 +390,7 @@ info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |>
   dplyr::filter(allele %in% c('B*58:01'))
 ```
 
-```{r b58 by ms county plot}
+```{r b58_by_ms_county_plot}
 out_data <- info_by_county |>
   dplyr::ungroup() |>
   dplyr::filter(allele == 'B*58:01') |>
@@ -461,7 +460,7 @@ ms_4 <-
 ```
 
 
-```{r b58 ms by h4 hexagon plot, fig.height = 8, fig.width = 8}
+```{r b58_ms_by_h4_hexagon_plot, fig.height = 8, fig.width = 8}
 ms_4$p1
 ```
 
