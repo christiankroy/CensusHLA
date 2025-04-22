@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   Roy2025_Figures_and_Tables: Roy2025_Figures_and_Tables.html
-last_built: 2025-04-22T21:19Z
+last_built: 2025-04-22T23:07Z
 urls:
   reference: https://affini-t-tx.github.io/CensusHLA/reference
   article: https://affini-t-tx.github.io/CensusHLA/articles
