@@ -5,6 +5,9 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15148807.svg)](https://doi.org/10.5281/zenodo.15148807)
 
+[See Github pages (pkgdown)
+Documentation](https://affini-t-tx.github.io/CensusHLA/)
+
 CensusHLA is an R package designed to facilitate the analysis of HLA
 allele frequencies across the United States using census data and other
 external datasets. The package provides tools for importing, processing,
