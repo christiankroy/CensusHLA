@@ -3,6 +3,7 @@ title: "Roy 2025 Figures and tables"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 format:
   html:
+    minimal: true
     code-fold: true
     warning: false
     error: false
