@@ -2,8 +2,9 @@ pandoc: '3.4'
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
+  Test_Rmd: Test_Rmd.html
   Test: Test.html
-last_built: 2025-04-22T20:41Z
+last_built: 2025-04-22T20:46Z
 urls:
   reference: https://affini-t-tx.github.io/CensusHLA/reference
   article: https://affini-t-tx.github.io/CensusHLA/articles

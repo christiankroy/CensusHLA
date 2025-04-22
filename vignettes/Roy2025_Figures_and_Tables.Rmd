@@ -19,6 +19,10 @@ format:
     toctitle: "Contents"
     theme: cosmo
     embed-resources: true
+vignette: >
+  %\VignetteIndexEntry{Vignette's Title}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -36,7 +40,7 @@ library(dplyr)
 
 ## 1A - Continental US A11 
 
-```{r a11 by state prep}
+```{r a11_by_state_prep, include=FALSE}
 state_frequencies <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_state |> dplyr::filter(allele == 'A*11:01')
 
 out_data <- state_frequencies |>
@@ -86,7 +90,7 @@ out_data |>
 ## 1B - A11:01 by County 
 
 
-```{r a11 by us county prep}
+```{r a11 by us county pre, include=FALSE}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(!(state %in% c('Alaska','Hawaii'))) |> 
   dplyr::filter(allele == 'A*11:01') 
@@ -153,7 +157,7 @@ gg_a11_by_county <-
 ```
 
 
-```{r a11_by_us_county_plot}
+```{r a11_by_us_county_plot, include=FALSE}
 gg_a11_by_county
 ```
 
