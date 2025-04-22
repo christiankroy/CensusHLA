@@ -6,33 +6,29 @@ format:
     toc: true
     toc_depth: 4
     toc_float: yes
-    toc-location: left
-    code-fold: true
-    code-tools: true
-    source: true
-    toggle: false
-    caption: none
-    df_print: paged
-    toctitle: "Contents"
-    theme: cosmo
     embed-resources: true
+    code-fold: true
+    warning: false
+    error: false
+    bibliography: references.bib
 ---
 
-```{r setup}
+```{r setup, include=FALSE}
 library(CensusHLA)
 library(ggplot2)
 library(dplyr)
-# Set global chunk options
-knitr::opts_chunk$set(fig.height = 8, fig.width = 8)
 ```
 
-# Figures
+# Introduction
 
-## Figure 1
++ Once you've downloaded all the requisite source information her the package's instructions, you can build the package and re-create Figures and Tables published in Roy2025
++ This vignette is provided to enable anyone to see the source data and methodology behind our publication.
 
-### A - Continental US A11 
+# Figure 1
 
-```{r a11 by state}
+## 1A - Continental US A11 
+
+```{r a11 by state figure}
 state_frequencies <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_state |> dplyr::filter(allele == 'A*11:01')
 
 out_data <- state_frequencies |>
@@ -54,11 +50,32 @@ gg_state <- usmap::plot_usmap(
 gg_state
 ```
 
+```{r a11 by state table}
+out_data |> 
+  dplyr::mutate(gf = round(gf,4)) |> 
+  dplyr::rename(
+    `State` = region,
+    `Census Region` = census_region,
+    `FIPS` = fips,
+    `Population-Adjusted Genotypic Frequency` = gf
+  ) |>
+  DT::datatable(
+    ,filter = 'top'
+    ,rownames = FALSE
+    ,extensions = 'Buttons', options = list(
+      scrollX=TRUE,
+      pageLength = 10,
+      dom = 'Bfrtip',
+      buttons = c('csv', 'excel')
+      )
+    )
+```
 
-### B - A11 by County 
+
+## 1B - A11:01 by County 
 
 
-```{r a11 by us county}
+```{r a11 by us county prep}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(!(state %in% c('Alaska','Hawaii'))) |> 
   dplyr::filter(allele == 'A*11:01') 
@@ -122,17 +139,50 @@ gg_a11_by_county <-
   linewidth = 0.1
 ) +
   viridis::scale_fill_viridis(option = "plasma", direction = 1)
-
-gg_a11_by_county
 ```
 
 
+```{r a11 by us county plot}
+gg_a11_by_county
+```
 
-### C - NDMP Correlations
+```{r a11 by us county table}
+out_data |> 
+  dplyr::ungroup() |> 
+  dplyr::mutate(gf = round(gf,4)) |> 
+  dplyr::rename(
+    `Census Region` = census_region,
+    `County` = county,
+    `FIPS` = fips,
+    `Allele` = allele,
+    `Population-Adjusted Genotypic Frequency` = gf
+  ) |>
+    dplyr::select(
+      `Census Region`,
+      `County`,
+      `FIPS`,
+      `Allele`,
+      `Population-Adjusted Genotypic Frequency`
+    ) |>
+  DT::datatable(
+    ,filter = 'top'
+    ,rownames = FALSE
+    ,extensions = 'Buttons', options = list(
+      scrollX=TRUE,
+      pageLength = 10,
+      dom = 'Bfrtip',
+      buttons = c('csv', 'excel')
+      )
+    )
 
-### D - A11 by CA County 
+```
 
 
+## 1C - NDMP Correlations
+
+NMDP Values are not publicly available for privacy reasons.  Please contact co-Author Martin Maiers for inquiries.
+
+## 1D - A11:01 by CA County 
 
 ```{r a11 by ca county}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
@@ -140,7 +190,7 @@ info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |>
   dplyr::filter(allele %in% c('A*11:01','A*02:01','A*03:01'))
 ```
 
-```{r}
+```{r a11 by ca county plot}
 out_data <- info_by_county |>
   dplyr::ungroup() |>
   dplyr::filter(allele == 'A*11:01') |>
@@ -166,40 +216,104 @@ gg_a11_in_ca
 ```
 
 
-### E A11 by CA by H4 Hexagon 
+```{r a11 by ca county table}
+out_data |> 
+  dplyr::ungroup() |> 
+  dplyr::mutate(gf = round(gf,4)) |> 
+  dplyr::rename(
+    `Census Region` = census_region,
+    `County` = county,
+    `FIPS` = fips,
+    `Allele` = allele,
+    `Population-Adjusted Genotypic Frequency` = gf
+  ) |>
+    dplyr::select(
+      `Census Region`,
+      `County`,
+      `FIPS`,
+      `Allele`,
+      `Population-Adjusted Genotypic Frequency`
+    ) |>
+  DT::datatable(
+    ,filter = 'top'
+    ,rownames = FALSE
+    ,extensions = 'Buttons', options = list(
+      scrollX=TRUE,
+      pageLength = 10,
+      dom = 'Bfrtip',
+      buttons = c('csv', 'excel')
+      )
+    )
+```
 
 
-```{r ca by hexagon prep}
+## 1E - A11:01 by CA by H4 Hexagon 
+
+
+```{r ca by hexagon prep, include=FALSE}
 state_info <- CensusHLA::query_state_codes()
 ca_4 <- CensusHLA::summarize_tract_genotypic_frequencies_by_h3_hexagon(
   state_abbreviation = 'CA',
   query_allele = 'A*11:01',
   h3_resolution = 4
 )
+
+```
+
+```{r ca by hexagon plot}
 ca_4$p1
 ```
 
+```{r ca by hexagon table}
+ca_4$genotypic_frequencies_by_hexon |> 
+  dplyr::ungroup() |> 
+  dplyr::mutate(us_2020_nmdp_gf_sum = round(us_2020_nmdp_gf_sum,4)) |> 
+  dplyr::rename(
+    `Hexagon ID` = hex,
+    `Allele` = allele,
+    `Hexagon Population` = total_2020_pop,
+    `Population-Adjusted Genotypic Frequency` = us_2020_nmdp_gf_sum) |> 
+  dplyr::select(
+    `Hexagon ID`,
+    `Allele`,
+    `Hexagon Population`,
+    `Population-Adjusted Genotypic Frequency`
+  ) |>
+  DT::datatable(
+    ,filter = 'top'
+    ,rownames = FALSE
+    ,extensions = 'Buttons', options = list(
+      scrollX=TRUE,
+      pageLength = 10,
+      dom = 'Bfrtip',
+      buttons = c('csv', 'excel')
+      )
+    )
+```
 
 
-### F A11 Catchment 
+## 1F - A11:01 Catchment 
 
-```{r a11 catchment, fig.height = 8, fig.width = 8}
+```{r a11 catchment prep}
 gg_catchment <- plot_delNero2022_catchment_areas(
   query_allele = 'A*11:01',
   CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed
 )
-gg_catchment
 ```
 
 
+```{r a11 catchment plot, fig.height = 8, fig.width = 8}
+gg_catchment
+```
+
++ For a table of A11:01 catchment, refer to Table 2 below.
 
 
+# Figure 2
 
-## Figure 2 [X}]
+## 2A - B58:01 by County 
 
-## A - B:58:01 by County 
-
-```{r b58 by county}
+```{r b58 by county prep}
 
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(!(state %in% c('Alaska','Hawaii'))) |> 
@@ -269,15 +383,15 @@ gg_b58_by_county
 ```
 
 
-## B - B58:01 in MS by County 
+## 2B - B58:01 in MS by County 
 
-```{r b58 by ms county}
+```{r b58 by ms county prep}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(state %in% c('Mississippi')) |> 
   dplyr::filter(allele %in% c('B*58:01'))
 ```
 
-```{r}
+```{r b58 by ms county plot}
 out_data <- info_by_county |>
   dplyr::ungroup() |>
   dplyr::filter(allele == 'B*58:01') |>
@@ -304,30 +418,97 @@ gg_b58_in_ms
 ```
 
 
-## C - B58:01 in MS by Hexagon  [X}]
+```{r b58 by ms county table}
+out_data |> 
+  dplyr::ungroup() |> 
+  dplyr::mutate(gf = round(gf,4)) |> 
+  dplyr::rename(
+    `Census Region` = census_region,
+    `County` = county,
+    `FIPS` = fips,
+    `Allele` = allele,
+    `Population-Adjusted Genotypic Frequency` = gf
+  ) |>
+    dplyr::select(
+      `Census Region`,
+      `County`,
+      `FIPS`,
+      `Allele`,
+      `Population-Adjusted Genotypic Frequency`
+    ) |>
+  DT::datatable(
+    ,filter = 'top'
+    ,rownames = FALSE
+    ,extensions = 'Buttons', options = list(
+      scrollX=TRUE,
+      pageLength = 10,
+      dom = 'Bfrtip',
+      buttons = c('csv', 'excel')
+      )
+    )
+```
 
-```{r b58 ms by h4 hexagon, fig.height = 8, fig.width = 8}
+
+## 2C - B58:01 in MS by Hexagon
+
+```{r b58 ms by h4 hexagon prep, fig.height = 8, fig.width = 8, include = FALSE}
 ms_4 <-
   CensusHLA::summarize_tract_genotypic_frequencies_by_h3_hexagon(
     state_abbreviation = 'MS',
     query_allele = 'B*58:01',
     h3_resolution = 4
   )
-ms_4$p1
-
 ```
 
 
-## D - B58:01 Catchment 
+```{r b58 ms by h4 hexagon plot, fig.height = 8, fig.width = 8}
+ms_4$p1
+```
 
-```{r b58 catchment, fig.height = 8, fig.width = 8}
+
+```{r b58 ms by h4 hexagon table}
+ms_4$genotypic_frequencies_by_hexon |> 
+  dplyr::ungroup() |> 
+  dplyr::mutate(us_2020_nmdp_gf_sum = round(us_2020_nmdp_gf_sum,4)) |> 
+  dplyr::rename(
+    `Hexagon ID` = hex,
+    `Allele` = allele,
+    `Hexagon Population` = total_2020_pop,
+    `Population-Adjusted Genotypic Frequency` = us_2020_nmdp_gf_sum) |> 
+  dplyr::select(
+    `Hexagon ID`,
+    `Allele`,
+    `Hexagon Population`,
+    `Population-Adjusted Genotypic Frequency`
+  ) |>
+  DT::datatable(
+    ,filter = 'top'
+    ,rownames = FALSE
+    ,extensions = 'Buttons', options = list(
+      scrollX=TRUE,
+      pageLength = 10,
+      dom = 'Bfrtip',
+      buttons = c('csv', 'excel')
+      )
+    )
+```
+
+
+## 2D - B58:01 Catchment 
+
+```{r b58 catchment prep}
 gg_catchment <- plot_delNero2022_catchment_areas(
   query_allele = 'B*58:01',
   CensusHLA::b58_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed
 )
+```
+
+
+```{r b58 catchment plot, fig.height = 8, fig.width = 8}
 gg_catchment
 ```
 
++ For a table of B\*58:01 by catchment see [Supplemental Table 4](@st4)
 
 # Tables
 
@@ -362,7 +543,17 @@ CensusHLA::us_pop_multirace_in_nmdp_codes |>
     `Percentage of Total Pop` = us_2020_percent_pop,
     `NMDP Calcualted GF` = nmdp_calc_gf,
     `Population-Adjusted GF` = us_2020_nmdp_gf
-  ) 
+  ) |> 
+  DT::datatable(
+    ,filter = 'top'
+    ,rownames = FALSE
+    ,extensions = 'Buttons', options = list(
+      scrollX=TRUE,
+      pageLength = 10,
+      dom = 'Bfrtip',
+      buttons = c('csv', 'excel')
+      )
+    )
   
 ```
 
@@ -376,15 +567,16 @@ CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment
   ,rownames = FALSE
   ,extensions = 'Buttons', options = list(
     scrollX=TRUE,
-    pageLength = 11,
+    #pageLength = 11,
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel', 'pdf', 'colvis')
+    buttons = c('csv', 'excel')
     )
   )
 ```
 
+# Supplemental Tables
 
-## Supplemental 1 - California County population-adjusted HLA-A*11:01 Genotypic frequencies 
+## Supplemental Table 1 - California County population-adjusted HLA-A*11:01 Genotypic frequencies 
 
 ```{r supp table 1 a11 in ca county}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
@@ -404,11 +596,41 @@ out_data <- info_by_county |>
 
 out_data <- out_data |> 
   dplyr::arrange(desc(gf))
-out_data
+```
+
+```{r supplemental table 1 a11 in ca county table}
+out_data |> 
+  dplyr::ungroup() |> 
+  dplyr::mutate(gf = round(gf,4)) |> 
+  dplyr::rename(
+    `Census Region` = census_region,
+    `County` = county,
+    `FIPS` = fips,
+    `Allele` = allele,
+    `Population-Adjusted Genotypic Frequency` = gf
+  ) |>
+    dplyr::select(
+      `Census Region`,
+      `County`,
+      `FIPS`,
+      `Allele`,
+      `Population-Adjusted Genotypic Frequency`
+    ) |>
+  DT::datatable(
+    ,filter = 'top'
+    ,rownames = FALSE
+    ,extensions = 'Buttons', options = list(
+      scrollX=TRUE,
+      pageLength = 10,
+      dom = 'Bfrtip',
+      buttons = c('csv', 'excel')
+      )
+    )
 ```
 
 
-## Supplemental 2 - United States 2020 Census Adjusted HLA-B*58:01 Genotypic Frequencies for Mississippi
+
+## Supplemental Table  2 - United States 2020 Census Adjusted HLA-B*58:01 Genotypic Frequencies for Mississippi
 
 ```{r}
 CensusHLA::us_pop_multirace_in_nmdp_codes |> 
@@ -440,16 +662,24 @@ CensusHLA::us_pop_multirace_in_nmdp_codes |>
     `Percentage of Total Pop` = us_2020_percent_pop,
     `NMDP Calcualted GF` = nmdp_calc_gf,
     `Population-Adjusted GF` = us_2020_nmdp_gf
-  ) 
+  ) |> 
+  DT::datatable(
+    ,filter = 'top'
+    ,rownames = FALSE
+    ,extensions = 'Buttons', options = list(
+      scrollX=TRUE,
+      pageLength = 10,
+      dom = 'Bfrtip',
+      buttons = c('csv', 'excel')
+      )
+    )
 
 
-  #dplyr::select(allele, us_2020_nmdp_gf) |> 
-  #dplyr::summarize(gf = sum(us_2020_nmdp_gf))
 ```
 
 
 
-## Supplemental 3 - Mississippi County population-adjusted HLA-B*58:01 Genotypic frequencies 
+## Supplemental Table 3 - Mississippi County population-adjusted HLA-B*58:01 Genotypic frequencies 
 
 ```{r Supp3 - b58 by mS county}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
@@ -469,11 +699,41 @@ out_data <- info_by_county |>
 
 out_data <- out_data |> 
   dplyr::arrange(desc(gf))
-out_data
 ```
 
 
-## Supplemental 4 - HLA-B*58:01 Population-adjusted genotypic frequencies by NCI Catchment areas.
+```{r}
+out_data |> 
+  dplyr::ungroup() |> 
+  dplyr::mutate(gf = round(gf,4)) |> 
+  dplyr::rename(
+    `Census Region` = census_region,
+    `County` = county,
+    `FIPS` = fips,
+    `Allele` = allele,
+    `Population-Adjusted Genotypic Frequency` = gf
+  ) |>
+    dplyr::select(
+      `Census Region`,
+      `County`,
+      `FIPS`,
+      `Allele`,
+      `Population-Adjusted Genotypic Frequency`
+    ) |>
+  DT::datatable(
+    ,filter = 'top'
+    ,rownames = FALSE
+    ,extensions = 'Buttons', options = list(
+      scrollX=TRUE,
+      pageLength = 10,
+      dom = 'Bfrtip',
+      buttons = c('csv', 'excel')
+      )
+    )
+```
+
+
+## Supplemental Table 4 - HLA-B*58:01 Population-adjusted genotypic frequencies by NCI Catchment areas. {#st4}
 
 
 ```{r b58 catchment table}
@@ -484,15 +744,11 @@ CensusHLA::b58_catchment_summed$sf_tract_centroids_for_all_states_with_catchment
     scrollX=TRUE,
     pageLength = 11,
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel', 'pdf', 'colvis')
+    buttons = c('csv', 'excel')
     )
   )
 ```
 
+# References
 
-# System and Session info
-
-```{r}
-sessionInfo()
-Sys.info()
-```
+::: {#refs}
