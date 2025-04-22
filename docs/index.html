@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>CensusHLA - a package to map US HLA Frequency data by region • CensusHLA</title>
-<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="index.html">CensusHLA</a>
 
@@ -46,6 +46,14 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/Affini-T-Tx/CensusHLA/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
+</li>
       </ul>
 </div>
 
@@ -57,7 +65,7 @@
 <div class="page-header"><h1 id="censushla">CensusHLA<a class="anchor" aria-label="anchor" href="#censushla"></a>
 </h1></div>
 <p><a href="https://doi.org/10.5281/zenodo.15148807" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.15148807.svg" alt="DOI"></a></p>
-<p><a href="https://affini-t-tx.github.io/CensusHLA/" class="external-link">See Github pages (pkgdown) Documentation</a></p>
+<p><a href="https://affini-t-tx.github.io/CensusHLA/">See Github pages (pkgdown) Documentation</a></p>
 <p>CensusHLA is an R package designed to facilitate the analysis of HLA allele frequencies across the United States using census data and other external datasets. The package provides tools for importing, processing, and visualizing HLA frequency data, as well as integrating it with spatial and demographic information. It is particularly useful for researchers working in population genetics, immunogenetics, and public health.</p>
 <figure><img src="reference/figures/a11_by_county.png" style="width:50.0%" alt="A11 by County"><figcaption aria-hidden="true">
 A11 by County

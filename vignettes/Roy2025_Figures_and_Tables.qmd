@@ -3,11 +3,19 @@ title: "Roy 2025 Figures and tables"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 format:
   html:
-    minimal: true
+    toc: true
+    toc_depth: 4
+    toc_float: yes
+    toc-location: left
     code-fold: true
-    warning: false
-    error: false
-    bibliography: references.bib
+    code-tools: true
+    source: true
+    toggle: false
+    caption: none
+    df_print: paged
+    toctitle: "Contents"
+    theme: cosmo
+    embed-resources: true
 ---
 
 ```{r setup, include=FALSE}
