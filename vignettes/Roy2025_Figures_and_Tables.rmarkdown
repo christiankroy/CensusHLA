@@ -7,18 +7,19 @@ format:
     toc_depth: 4
     toc_float: yes
     embed-resources: true
-    code-fold: true
 vignette: >
   %\VignetteIndexEntry{Vignette's Title}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, collapse=TRUE}
 library(CensusHLA)
 library(ggplot2)
 library(dplyr)
 ```
+
+
 
 # Introduction
 
@@ -29,7 +30,9 @@ library(dplyr)
 
 ## 1A - Continental US A11 
 
-```{r a11_by_state_prep, include=FALSE}
+
+
+```{r a11_by_state_prep, include=FALSE, collapse=TRUE}
 state_frequencies <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_state |> dplyr::filter(allele == 'A*11:01')
 
 out_data <- state_frequencies |>
@@ -48,7 +51,6 @@ gg_state <- usmap::plot_usmap(
 ) +
   viridis::scale_fill_viridis(option = "plasma", direction = 1)
 ```
-
 
 ```{r a11_by_state_plot}
 gg_state
@@ -76,10 +78,14 @@ out_data |>
 ```
 
 
+
+
 ## 1B - A11:01 by County 
 
 
-```{r a11 by us county pre, include=FALSE}
+
+
+```{r a11 by us county pre, include=FALSE, collapse=TRUE}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(!(state %in% c('Alaska','Hawaii'))) |> 
   dplyr::filter(allele == 'A*11:01') 
@@ -145,8 +151,7 @@ gg_a11_by_county <-
   viridis::scale_fill_viridis(option = "plasma", direction = 1)
 ```
 
-
-```{r a11_by_us_county_plot, include=FALSE}
+```{r a11_by_us_county_plot, include=FALSE, collapse=TRUE}
 gg_a11_by_county
 ```
 
@@ -182,19 +187,23 @@ out_data |>
 ```
 
 
+
+
 ## 1C - NDMP Correlations
 
 NMDP Values are not publicly available for privacy reasons.  Please contact co-Author Martin Maiers for inquiries.
 
 ## 1D - A11:01 by CA County 
 
-```{r a11_by_ca_county, include=FALSE}
+
+
+```{r a11_by_ca_county, include=FALSE, collapse=TRUE}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(state %in% c('California')) |> 
   dplyr::filter(allele %in% c('A*11:01','A*02:01','A*03:01'))
 ```
 
-```{r a11_by_ca_county_prep, include=FALSE}
+```{r a11_by_ca_county_prep, include=FALSE, collapse=TRUE}
 out_data <- info_by_county |>
   dplyr::ungroup() |>
   dplyr::filter(allele == 'A*11:01') |>
@@ -220,7 +229,6 @@ gg_a11_in_ca <-
 ```{r a11_by_ca_county_plot}
 gg_a11_in_ca
 ```
-
 
 ```{r a11_by_ca_county_table}
 out_data |> 
@@ -253,10 +261,14 @@ out_data |>
 ```
 
 
+
+
 ## 1E - A11:01 by CA by H4 Hexagon 
 
 
-```{r ca by hexagon prep, include=FALSE}
+
+
+```{r ca by hexagon prep, include=FALSE, collapse=TRUE}
 state_info <- CensusHLA::query_state_codes()
 ca_4 <- CensusHLA::summarize_tract_genotypic_frequencies_by_h3_hexagon(
   state_abbreviation = 'CA',
@@ -298,19 +310,24 @@ ca_4$genotypic_frequencies_by_hexon |>
 ```
 
 
+
+
 ## 1F - A11:01 Catchment 
 
-```{r a11 catchment prep, include=FALSE}
+
+
+```{r a11 catchment prep, include=FALSE, collapse=TRUE}
 gg_catchment <- plot_delNero2022_catchment_areas(
   query_allele = 'A*11:01',
   CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed
 )
 ```
 
-
 ```{r a11 catchment plot, fig.height = 8, fig.width = 8}
 gg_catchment
 ```
+
+
 
 + For a table of A11:01 catchment, refer to Table 2 below.
 
@@ -319,7 +336,9 @@ gg_catchment
 
 ## 2A - B58:01 by County 
 
-```{r b58 by county prep, include=FALSE}
+
+
+```{r b58 by county prep, include=FALSE, collapse=TRUE}
 
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(!(state %in% c('Alaska','Hawaii'))) |> 
@@ -391,15 +410,19 @@ gg_b58_by_county
 ```
 
 
+
+
 ## 2B - B58:01 in MS by County 
 
-```{r b58 by ms county prep, include=FALSE}
+
+
+```{r b58 by ms county prep, include=FALSE, collapse=TRUE}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(state %in% c('Mississippi')) |> 
   dplyr::filter(allele %in% c('B*58:01'))
 ```
 
-```{r b58_by_ms_county_prep, include=FALSE}
+```{r b58_by_ms_county_prep, include=FALSE, collapse=TRUE}
 out_data <- info_by_county |>
   dplyr::ungroup() |>
   dplyr::filter(allele == 'B*58:01') |>
@@ -426,7 +449,6 @@ gg_b58_in_ms <-
 ```{r b58_by_ms_county_plot}
 gg_b58_in_ms
 ```
-
 
 ```{r b58 by ms county table}
 out_data |> 
@@ -459,7 +481,11 @@ out_data |>
 ```
 
 
+
+
 ## 2C - B58:01 in MS by Hexagon
+
+
 
 ```{r b58 ms by h4 hexagon prep, include = FALSE}
 ms_4 <-
@@ -470,11 +496,9 @@ ms_4 <-
   )
 ```
 
-
 ```{r b58_ms_by_h4_hexagon_plot, fig.height = 8, fig.width = 8}
 ms_4$p1
 ```
-
 
 ```{r b58 ms by h4 hexagon table}
 ms_4$genotypic_frequencies_by_hexon |> 
@@ -504,25 +528,32 @@ ms_4$genotypic_frequencies_by_hexon |>
 ```
 
 
+
+
 ## 2D - B58:01 Catchment 
 
-```{r b58 catchment prep, include=FALSE}
+
+
+```{r b58 catchment prep, include=FALSE, collapse=TRUE}
 gg_catchment <- plot_delNero2022_catchment_areas(
   query_allele = 'B*58:01',
   CensusHLA::b58_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed
 )
 ```
 
-
 ```{r b58 catchment plot, fig.height = 8, fig.width = 8}
 gg_catchment
 ```
+
+
 
 + For a table of B\*58:01 by catchment see [Supplemental Table 4](@st4)
 
 # Tables
 
 ## Table 1: United States 2020 Census Adjusted HLA-A*11:01 Genotypic Frequencies 
+
+
 
 ```{r}
 CensusHLA::us_pop_multirace_in_nmdp_codes |> 
@@ -569,7 +600,11 @@ CensusHLA::us_pop_multirace_in_nmdp_codes |>
 
 
 
+
+
 ## Table 2: HLA-A*11:01 Population-adjusted genotypic frequencies for top 11 NCI Catchment areas. 
+
+
 
 ```{r a11 catchment table}
 CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed |> dplyr::select(-geometry) |> dplyr::mutate(patient_pop = total_2020_pop * us_2020_nmdp_gf_sum) |>  dplyr::arrange(desc(patient_pop)) |> DT::datatable(
@@ -584,11 +619,15 @@ CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment
   )
 ```
 
+
+
 # Supplemental Tables
 
 ## Supplemental Table 1 - California County population-adjusted HLA-A*11:01 Genotypic frequencies 
 
-```{r supp table 1 a11 in ca county, include=FALSE}
+
+
+```{r supp table 1 a11 in ca county, include=FALSE, collapse=TRUE}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(state %in% c('California')) |> 
   dplyr::filter(allele %in% c('A*11:01','A*02:01','A*03:01'))
@@ -640,7 +679,11 @@ out_data |>
 
 
 
+
+
 ## Supplemental Table  2 - United States 2020 Census Adjusted HLA-B*58:01 Genotypic Frequencies for Mississippi
+
+
 
 ```{r}
 CensusHLA::us_pop_multirace_in_nmdp_codes |> 
@@ -689,9 +732,13 @@ CensusHLA::us_pop_multirace_in_nmdp_codes |>
 
 
 
+
+
 ## Supplemental Table 3 - Mississippi County population-adjusted HLA-B*58:01 Genotypic frequencies 
 
-```{r Supp3 - b58 by mS county, include=FALSE}
+
+
+```{r Supp3 - b58 by mS county, include=FALSE, collapse=TRUE}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(state %in% c('Mississippi')) |> 
   dplyr::filter(allele %in% c('B*58:01'))
@@ -710,7 +757,6 @@ out_data <- info_by_county |>
 out_data <- out_data |> 
   dplyr::arrange(desc(gf))
 ```
-
 
 ```{r supplemental table 3 b58 by ms county}
 out_data |> 
@@ -743,7 +789,11 @@ out_data |>
 ```
 
 
+
+
 ## Supplemental Table 4 - HLA-B*58:01 Population-adjusted genotypic frequencies by NCI Catchment areas. {#st4}
+
+
 
 
 ```{r b58 catchment table}
@@ -759,6 +809,9 @@ CensusHLA::b58_catchment_summed$sf_tract_centroids_for_all_states_with_catchment
   )
 ```
 
+
+
 # References
 
 ::: {#refs}
+

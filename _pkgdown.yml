@@ -1,3 +1,5 @@
 url: https://affini-t-tx.github.io/CensusHLA/
 template:
   bootstrap: 5
+  params:
+    code_folding: hide
