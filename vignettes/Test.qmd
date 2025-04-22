@@ -1,20 +1,20 @@
 ---
 title: "Test Roy 2025 Figures and tables"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
-format:
+format: 
   html:
+    theme: none
+    minimal: true
+    embed-resources: true
+    css: custom.css
     toc: true
-    toc_depth: 4
-    toc_float: yes
-    toc-location: left
-    code-fold: true
-    code-tools: true
-    toggle: false
-    errors: false
     warnings: false
-    message: false
-    caption: none
-    toctitle: "Contents"
+    messages: false
+    html-math-method: mathjax
+vignette: >
+  %\VignetteIndexEntry{Vignette's Title}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -33,6 +33,7 @@ library(dplyr)
 ## 1A - Continental US A11 
 
 ```{r a11 by state prep}
+
 state_frequencies <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_state |> dplyr::filter(allele == 'A*11:01')
 
 out_data <- state_frequencies |>

@@ -49,3 +49,4 @@ Depends:
 LazyData: true
 VignetteBuilder:
     quarto
+Config/Needs/website: rmarkdown
