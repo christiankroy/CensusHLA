@@ -199,13 +199,13 @@ NMDP Values are not publicly available for privacy reasons.  Please contact co-A
 
 ## 1D - A11:01 by CA County 
 
-```{r a11_by_ca_county}
+```{r a11_by_ca_county, include=FALSE}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(state %in% c('California')) |> 
   dplyr::filter(allele %in% c('A*11:01','A*02:01','A*03:01'))
 ```
 
-```{r a11_by_ca_county_plot}
+```{r a11_by_ca_county_prep, include=FALSE}
 out_data <- info_by_county |>
   dplyr::ungroup() |>
   dplyr::filter(allele == 'A*11:01') |>
@@ -226,7 +226,9 @@ gg_a11_in_ca <-
   linewidth = 0.1
 ) +
   viridis::scale_fill_viridis(option = "plasma", direction = 1)
+```
 
+```{r a11_by_ca_county_plot}
 gg_a11_in_ca
 ```
 
@@ -309,7 +311,7 @@ ca_4$genotypic_frequencies_by_hexon |>
 
 ## 1F - A11:01 Catchment 
 
-```{r a11 catchment prep}
+```{r a11 catchment prep, include=FALSE}
 gg_catchment <- plot_delNero2022_catchment_areas(
   query_allele = 'A*11:01',
   CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed
@@ -328,7 +330,7 @@ gg_catchment
 
 ## 2A - B58:01 by County 
 
-```{r b58 by county prep}
+```{r b58 by county prep, include=FALSE}
 
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(!(state %in% c('Alaska','Hawaii'))) |> 
@@ -393,20 +395,22 @@ gg_b58_by_county <-
   linewidth = 0.1
 ) +
   viridis::scale_fill_viridis(option = "plasma", direction = 1)
+```
 
+```{r b58_by_county_plot}
 gg_b58_by_county
 ```
 
 
 ## 2B - B58:01 in MS by County 
 
-```{r b58 by ms county prep}
+```{r b58 by ms county prep, include=FALSE}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(state %in% c('Mississippi')) |> 
   dplyr::filter(allele %in% c('B*58:01'))
 ```
 
-```{r b58_by_ms_county_plot}
+```{r b58_by_ms_county_prep, include=FALSE}
 out_data <- info_by_county |>
   dplyr::ungroup() |>
   dplyr::filter(allele == 'B*58:01') |>
@@ -428,7 +432,9 @@ gg_b58_in_ms <-
 ) +
   viridis::scale_fill_viridis(option = "plasma", direction = 1) + 
   theme(legend.position = 'right' )
+```
 
+```{r b58_by_ms_county_plot}
 gg_b58_in_ms
 ```
 
@@ -466,7 +472,7 @@ out_data |>
 
 ## 2C - B58:01 in MS by Hexagon
 
-```{r b58 ms by h4 hexagon prep, fig.height = 8, fig.width = 8, include = FALSE}
+```{r b58 ms by h4 hexagon prep, include = FALSE}
 ms_4 <-
   CensusHLA::summarize_tract_genotypic_frequencies_by_h3_hexagon(
     state_abbreviation = 'MS',
@@ -511,7 +517,7 @@ ms_4$genotypic_frequencies_by_hexon |>
 
 ## 2D - B58:01 Catchment 
 
-```{r b58 catchment prep}
+```{r b58 catchment prep, include=FALSE}
 gg_catchment <- plot_delNero2022_catchment_areas(
   query_allele = 'B*58:01',
   CensusHLA::b58_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed
@@ -593,7 +599,7 @@ CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment
 
 ## Supplemental Table 1 - California County population-adjusted HLA-A*11:01 Genotypic frequencies 
 
-```{r supp table 1 a11 in ca county}
+```{r supp table 1 a11 in ca county, include=FALSE}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(state %in% c('California')) |> 
   dplyr::filter(allele %in% c('A*11:01','A*02:01','A*03:01'))
@@ -696,7 +702,7 @@ CensusHLA::us_pop_multirace_in_nmdp_codes |>
 
 ## Supplemental Table 3 - Mississippi County population-adjusted HLA-B*58:01 Genotypic frequencies 
 
-```{r Supp3 - b58 by mS county}
+```{r Supp3 - b58 by mS county, include=FALSE}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
   dplyr::filter(state %in% c('Mississippi')) |> 
   dplyr::filter(allele %in% c('B*58:01'))
@@ -717,7 +723,7 @@ out_data <- out_data |>
 ```
 
 
-```{r}
+```{r supplemental table 3 b58 by ms county}
 out_data |> 
   dplyr::ungroup() |> 
   dplyr::mutate(gf = round(gf,4)) |> 
