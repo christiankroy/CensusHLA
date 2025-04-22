@@ -9,13 +9,11 @@ format:
     toc-location: left
     code-fold: true
     code-tools: true
-    source: true
     toggle: false
     errors: false
     warnings: false
     message: false
     caption: none
-    df_print: paged
     toctitle: "Contents"
 ---
 
