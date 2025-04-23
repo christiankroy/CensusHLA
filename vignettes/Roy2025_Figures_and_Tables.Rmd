@@ -18,9 +18,19 @@ vignette: >
 library(CensusHLA)
 library(ggplot2)
 library(dplyr)
+# set knitr for messages, warnings, to false
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE,
+  fig.width = 8,
+  fig.height = 8
+)
+
 ```
 
 # Introduction
+
 
 + Once you've downloaded all the requisite source information her the package's instructions, you can build the package and re-create Figures and Tables published in Roy2025
 + This vignette is provided to enable anyone to see the source data and methodology behind our publication.
@@ -572,12 +582,32 @@ CensusHLA::us_pop_multirace_in_nmdp_codes |>
 ## Table 2: HLA-A*11:01 Population-adjusted genotypic frequencies for top 11 NCI Catchment areas. 
 
 ```{r a11 catchment table, echo = FALSE}
-CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed |> dplyr::select(-geometry) |> dplyr::mutate(patient_pop = total_2020_pop * us_2020_nmdp_gf_sum) |>  dplyr::arrange(desc(patient_pop)) |> DT::datatable(
+CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed |>     
+  dplyr::ungroup() |> 
+  dplyr::as_tibble() |> 
+  dplyr::select(-geometry) |> 
+  dplyr::mutate(patient_pop = total_2020_pop * us_2020_nmdp_gf_sum) |> 
+  dplyr::mutate(us_2020_nmdp_gf_sum = round(us_2020_nmdp_gf_sum,4)) |> 
+  dplyr::arrange(desc(patient_pop)) |> 
+  dplyr::rename(
+    `Catchment` = name,
+    `Allele` = allele,
+    `Catchment Census Population` = total_2020_pop,
+    `Genotypic Frequency` = us_2020_nmdp_gf_sum,
+    `Catchment GF Population` = patient_pop) |>
+  dplyr::select(
+    `Catchment`,
+    `Allele`,
+    `Catchment Census Population`,
+    `Genotypic Frequency`,
+    `Catchment GF Population`
+  ) |> 
+  DT::datatable(
   ,filter = 'top'
   ,rownames = FALSE
   ,extensions = 'Buttons', options = list(
     scrollX=TRUE,
-    #pageLength = 11,
+    pageLength = 10,
     dom = 'Bfrtip',
     buttons = c('csv', 'excel')
     )
@@ -743,16 +773,36 @@ out_data |>
 ```
 
 
-## Supplemental Table 4 - HLA-B*58:01 Population-adjusted genotypic frequencies by NCI Catchment areas. {#st4}
+## Supplemental Table 4 - HLA-B*58:01 Population-adjusted genotypic frequencies by NCI Catchment areas
 
 
 ```{r b58 catchment table, echo = FALSE}
-CensusHLA::b58_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed |> dplyr::select(-geometry) |> dplyr::mutate(patient_pop = total_2020_pop * us_2020_nmdp_gf_sum) |>  dplyr::arrange(desc(patient_pop)) |> DT::datatable(
+CensusHLA::b58_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed |> 
+  dplyr::ungroup() |> 
+  dplyr::as_tibble() |> 
+  dplyr::select(-geometry) |> 
+  dplyr::mutate(patient_pop = total_2020_pop * us_2020_nmdp_gf_sum) |> 
+  dplyr::mutate(us_2020_nmdp_gf_sum = round(us_2020_nmdp_gf_sum,4)) |> 
+  dplyr::arrange(desc(patient_pop)) |> 
+  dplyr::rename(
+    `Catchment` = name,
+    `Allele` = allele,
+    `Catchment Census Population` = total_2020_pop,
+    `Genotypic Frequency` = us_2020_nmdp_gf_sum,
+    `Catchment GF Population` = patient_pop) |>
+  dplyr::select(
+    `Catchment`,
+    `Allele`,
+    `Catchment Census Population`,
+    `Genotypic Frequency`,
+    `Catchment GF Population`
+  ) |> 
+  DT::datatable(
   ,filter = 'top'
   ,rownames = FALSE
   ,extensions = 'Buttons', options = list(
     scrollX=TRUE,
-    pageLength = 11,
+    pageLength = 10,
     dom = 'Bfrtip',
     buttons = c('csv', 'excel')
     )
