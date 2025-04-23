@@ -3,7 +3,7 @@
 
 # CensusHLA
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15148807.svg)](https://doi.org/10.5281/zenodo.15148807)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15148806.svg)](https://doi.org/10.5281/zenodo.15148806)
 
 - Please refer to [Github pages (pkgdown)
   Documentation](https://affini-t-tx.github.io/CensusHLA/) to get
