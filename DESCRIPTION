@@ -1,12 +1,16 @@
 Package: CensusHLA
 Title: CensusHLA - a package to map US HLA Frequency data by region
-Version: 0.1.0.9000
-Authors@R: 
-    person("Christian", "Roy", , "christian.roy@affinittx.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-5953-5048"))
+Version: 0.2.0
+Authors@R:
+    c(
+      person("Christian", "Roy", , "christian.roy@affinittx.com", role = c("aut", "cre"),
+             comment = c(ORCID = "0000-0002-5953-5048")),
+      person("Ileana", "Saenz", , "ileana.saenz@affinittx.com",role = c("aut", "cre"),
+             comment = c(ORCID = "0009-0005-9107-4877"))
+      )
 Description: Combines US HLA Frequencies with Census data for regional frequency predictions
 License: GPL (>= 3)
-URL: https://github.com/Affini-T-Tx/CensusHLA
+URL: https://github.com/Affini-T-Tx/CensusHLA, https://affini-t-tx.github.io/CensusHLA/
 BugReports: https://github.com/Affini-T-Tx/CensusHLA
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -49,3 +53,4 @@ Depends:
 LazyData: true
 VignetteBuilder:
     quarto
+Config/Needs/website: rmarkdown
