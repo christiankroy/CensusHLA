@@ -26,7 +26,6 @@ knitr::opts_chunk$set(
   fig.width = 8,
   fig.height = 8
 )
-
 ```
 
 # Introduction
@@ -58,7 +57,6 @@ gg_state <- usmap::plot_usmap(
 ) +
   viridis::scale_fill_viridis(option = "plasma", direction = 1)
 ```
-
 
 ```{r a11_by_state_plot, echo = FALSE}
 gg_state
