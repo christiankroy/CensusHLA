@@ -30,13 +30,14 @@ knitr::opts_chunk$set(
 
 # Introduction
 
+-   Once you've downloaded all the requisite source information her the package's instructions, you can build the package and re-create Figures and Tables published in Roy2025
+-   This vignette is provided to enable anyone to see the source data and methodology behind our publication.
 
-+ Once you've downloaded all the requisite source information her the package's instructions, you can build the package and re-create Figures and Tables published in Roy2025
-+ This vignette is provided to enable anyone to see the source data and methodology behind our publication.
+------------------------------------------------------------------------
 
 # Figure 1
 
-## 1A - Continental US A11 
+## 1A - Continental US A11
 
 ```{r a11_by_state_prep, include=FALSE, echo = FALSE, echo = FALSE}
 state_frequencies <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_state |> dplyr::filter(allele == 'A*11:01')
@@ -83,9 +84,9 @@ out_data |>
     )
 ```
 
+------------------------------------------------------------------------
 
-## 1B - A11:01 by County 
-
+## 1B - A11:01 by County
 
 ```{r a11 by us county pre, include=FALSE, echo = FALSE}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
@@ -153,7 +154,6 @@ gg_a11_by_county <-
   viridis::scale_fill_viridis(option = "plasma", direction = 1)
 ```
 
-
 ```{r a11_by_us_county_plot, include=FALSE, echo = FALSE}
 gg_a11_by_county
 ```
@@ -189,12 +189,15 @@ out_data |>
 
 ```
 
+------------------------------------------------------------------------
 
 ## 1C - NDMP Correlations
 
-NMDP Values are not publicly available for privacy reasons.  Please contact co-Author Martin Maiers for inquiries.
+NMDP Values are not publicly available for privacy reasons. Please contact co-Author Martin Maiers for inquiries.
 
-## 1D - A11:01 by CA County 
+------------------------------------------------------------------------
+
+## 1D - A11:01 by CA County
 
 ```{r a11_by_ca_county, include=FALSE, echo = FALSE}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
@@ -229,7 +232,6 @@ gg_a11_in_ca <-
 gg_a11_in_ca
 ```
 
-
 ```{r a11_by_ca_county_table, echo = FALSE}
 out_data |> 
   dplyr::ungroup() |> 
@@ -260,9 +262,9 @@ out_data |>
     )
 ```
 
+------------------------------------------------------------------------
 
-## 1E - A11:01 by CA by H4 Hexagon 
-
+## 1E - A11:01 by CA by H4 Hexagon
 
 ```{r ca by hexagon prep, include=FALSE, echo = FALSE}
 state_info <- CensusHLA::query_state_codes()
@@ -305,8 +307,9 @@ ca_4$genotypic_frequencies_by_hexon |>
     )
 ```
 
+------------------------------------------------------------------------
 
-## 1F - A11:01 Catchment 
+## 1F - A11:01 Catchment
 
 ```{r a11 catchment prep, include=FALSE, echo = FALSE}
 gg_catchment <- plot_delNero2022_catchment_areas(
@@ -315,17 +318,17 @@ gg_catchment <- plot_delNero2022_catchment_areas(
 )
 ```
 
-
 ```{r a11 catchment plot, fig.height = 8, fig.width = 8, echo = FALSE}
 gg_catchment
 ```
 
-+ For a table of A11:01 catchment, refer to Table 2 below.
+-   For a table of A11:01 catchment, refer to [Table 2 below.](#tb2)
 
+------------------------------------------------------------------------
 
 # Figure 2
 
-## 2A - B58:01 by County 
+## 2A - B58:01 by County
 
 ```{r b58 by county prep, include=FALSE, echo = FALSE}
 
@@ -398,8 +401,9 @@ gg_b58_by_county <-
 gg_b58_by_county
 ```
 
+------------------------------------------------------------------------
 
-## 2B - B58:01 in MS by County 
+## 2B - B58:01 in MS by County
 
 ```{r b58 by ms county prep, include=FALSE, echo = FALSE}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
@@ -435,7 +439,6 @@ gg_b58_in_ms <-
 gg_b58_in_ms
 ```
 
-
 ```{r b58 by ms county table, echo = FALSE}
 out_data |> 
   dplyr::ungroup() |> 
@@ -466,6 +469,7 @@ out_data |>
     )
 ```
 
+------------------------------------------------------------------------
 
 ## 2C - B58:01 in MS by Hexagon
 
@@ -478,11 +482,9 @@ ms_4 <-
   )
 ```
 
-
 ```{r b58_ms_by_h4_hexagon_plot, fig.height = 8, fig.width = 8, echo = FALSE}
 ms_4$p1
 ```
-
 
 ```{r b58 ms by h4 hexagon table, echo = FALSE}
 ms_4$genotypic_frequencies_by_hexon |> 
@@ -511,8 +513,9 @@ ms_4$genotypic_frequencies_by_hexon |>
     )
 ```
 
+------------------------------------------------------------------------
 
-## 2D - B58:01 Catchment 
+## 2D - B58:01 Catchment
 
 ```{r b58 catchment prep, include=FALSE, echo = FALSE}
 gg_catchment <- plot_delNero2022_catchment_areas(
@@ -521,16 +524,17 @@ gg_catchment <- plot_delNero2022_catchment_areas(
 )
 ```
 
-
 ```{r b58 catchment plot, fig.height = 8, fig.width = 8, echo = FALSE}
 gg_catchment
 ```
 
-+ For a table of B\*58:01 by catchment see [Supplemental Table 4](@st4)
+-   For a table of B\*58:01 by catchment see [Supplemental Table 4 below](#st4).
+
+------------------------------------------------------------------------
 
 # Tables
 
-## Table 1: United States 2020 Census Adjusted HLA-A*11:01 Genotypic Frequencies 
+## Table 1: United States 2020 Census Adjusted HLA-A\*11:01 Genotypic Frequencies
 
 ```{r, echo = FALSE}
 CensusHLA::us_pop_multirace_in_nmdp_codes |> 
@@ -575,9 +579,9 @@ CensusHLA::us_pop_multirace_in_nmdp_codes |>
   
 ```
 
+------------------------------------------------------------------------
 
-
-## Table 2: HLA-A*11:01 Population-adjusted genotypic frequencies for top 11 NCI Catchment areas. 
+## Table 2: HLA-A\*11:01 Population-adjusted genotypic frequencies for top 11 NCI Catchment areas. {#tb2}
 
 ```{r a11 catchment table, echo = FALSE}
 CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed |>     
@@ -612,9 +616,11 @@ CensusHLA::a11_catchment_summed$sf_tract_centroids_for_all_states_with_catchment
   )
 ```
 
+------------------------------------------------------------------------
+
 # Supplemental Tables
 
-## Supplemental Table 1 - California County population-adjusted HLA-A*11:01 Genotypic frequencies 
+## Supplemental Table 1 - California County population-adjusted HLA-A\*11:01 Genotypic frequencies
 
 ```{r supp table 1 a11 in ca county, include=FALSE, echo = FALSE}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
@@ -666,9 +672,9 @@ out_data |>
     )
 ```
 
+------------------------------------------------------------------------
 
-
-## Supplemental Table  2 - United States 2020 Census Adjusted HLA-B*58:01 Genotypic Frequencies for Mississippi
+## Supplemental Table 2 - United States 2020 Census Adjusted HLA-B\*58:01 Genotypic Frequencies for Mississippi
 
 ```{r, echo = FALSE}
 CensusHLA::us_pop_multirace_in_nmdp_codes |> 
@@ -715,9 +721,9 @@ CensusHLA::us_pop_multirace_in_nmdp_codes |>
 
 ```
 
+------------------------------------------------------------------------
 
-
-## Supplemental Table 3 - Mississippi County population-adjusted HLA-B*58:01 Genotypic frequencies 
+## Supplemental Table 3 - Mississippi County population-adjusted HLA-B\*58:01 Genotypic frequencies
 
 ```{r Supp3 - b58 by mS county, include=FALSE, echo = FALSE}
 info_by_county <- CensusHLA::census_adjusted_nmdp_hla_frequencies_by_county |> 
@@ -738,7 +744,6 @@ out_data <- info_by_county |>
 out_data <- out_data |> 
   dplyr::arrange(desc(gf))
 ```
-
 
 ```{r supplemental table 3 b58 by ms county, echo = FALSE}
 out_data |> 
@@ -770,9 +775,9 @@ out_data |>
     )
 ```
 
+------------------------------------------------------------------------
 
-## Supplemental Table 4 - HLA-B*58:01 Population-adjusted genotypic frequencies by NCI Catchment areas
-
+## Supplemental Table 4 - HLA-B\*58:01 Population-adjusted genotypic frequencies by NCI Catchment areas {#st4}
 
 ```{r b58 catchment table, echo = FALSE}
 CensusHLA::b58_catchment_summed$sf_tract_centroids_for_all_states_with_catchment_with_us_population_race_code_percentages_by_tract_summed |> 
@@ -807,6 +812,9 @@ CensusHLA::b58_catchment_summed$sf_tract_centroids_for_all_states_with_catchment
   )
 ```
 
+------------------------------------------------------------------------
+
 # References
 
 ::: {#refs}
+:::
