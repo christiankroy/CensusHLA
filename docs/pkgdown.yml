@@ -2,9 +2,9 @@ pandoc: '3.4'
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
-  articles/censushla: censushla.html
+  censushla: censushla.html
   Roy2025_Figures_and_Tables: Roy2025_Figures_and_Tables.html
-last_built: 2025-04-23T11:42Z
+last_built: 2025-04-23T12:17Z
 urls:
   reference: https://affini-t-tx.github.io/CensusHLA/reference
   article: https://affini-t-tx.github.io/CensusHLA/articles

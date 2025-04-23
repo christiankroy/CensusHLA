@@ -37,7 +37,6 @@ file for details.
 - The NCI for awesome cancer catchment data. DelNero et al. (2022)
 - The `sf`, `h3jsr`, `rnaturalearth`, and `usmap` packages for spatial
   data handling and visualization.
-- 
 
 # References
 
