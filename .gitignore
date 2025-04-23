@@ -19,5 +19,4 @@ data/us_pop_multirace_in_nmdp_codes.rda
 /doc/
 /Meta/
 /.quarto/
-
 background_jobs.R

@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 
 # Publication
 
-- For code and summary statitistics used in Roy2025, please refer to [this vignette]({{< link "Roy 2025 Figures and tables" >}})
+- For code and summary statistics used in Roy2025, please refer to `vignette("Roy 2025 Figures and tables")`
 
 # Features
 

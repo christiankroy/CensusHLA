@@ -5,9 +5,13 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15148807.svg)](https://doi.org/10.5281/zenodo.15148807)
 
-Please refer to [Github pages (pkgdown)
-Documentation](https://affini-t-tx.github.io/CensusHLA/) to get started,
-and to find data from Roy2025.
+- Please refer to [Github pages (pkgdown)
+  Documentation](https://affini-t-tx.github.io/CensusHLA/) to get
+  started,
+
+- [Refer here for summary data used to generate Figures and Tables
+  for](https://affini-t-tx.github.io/CensusHLA/articles/Roy2025_Figures_and_Tables.html)
+  Roy2025.
 
 CensusHLA is an R package designed to facilitate the analysis of HLA
 allele frequencies across the United States using census data and other
@@ -17,8 +21,16 @@ spatial and demographic information. It is particularly useful for
 researchers working in population genetics, immunogenetics, and public
 health.
 
+<figure>
 <img src="man/figures/a11_by_county.png" style="width:50.0%"
-alt="A11 by County" /> \## Contributing
+alt="A*11:01 GF by San Francisco Census Tract" />
+<figcaption aria-hidden="true">A*11:01 GF by San Francisco Census
+Tract</figcaption>
+</figure>
+
+------------------------------------------------------------------------
+
+## Contributing
 
 Contributions are welcome! Please submit issues or pull requests via
 GitHub.

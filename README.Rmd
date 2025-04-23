@@ -1,6 +1,6 @@
 ---
 output: github_document
-bibliography: vignettes/articles/references.bib
+bibliography: vignettes/references.bib
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -18,11 +18,16 @@ knitr::opts_chunk$set(
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15148807.svg)](https://doi.org/10.5281/zenodo.15148807)
 
-Please refer to [Github pages (pkgdown) Documentation](https://affini-t-tx.github.io/CensusHLA/) to get started, and to find data from Roy2025.
+-   Please refer to [Github pages (pkgdown) Documentation](https://affini-t-tx.github.io/CensusHLA/) to get started,
+
+-   [Refer here for summary data used to generate Figures and Tables for](https://affini-t-tx.github.io/CensusHLA/articles/Roy2025_Figures_and_Tables.html) Roy2025.
 
 CensusHLA is an R package designed to facilitate the analysis of HLA allele frequencies across the United States using census data and other external datasets. The package provides tools for importing, processing, and visualizing HLA frequency data, as well as integrating it with spatial and demographic information. It is particularly useful for researchers working in population genetics, immunogenetics, and public health.
 
-![A11 by County](man/figures/a11_by_county.png){width=50%}
+![A\*11:01 GF by San Francisco Census Tract](man/figures/a11_by_county.png){width="50%"}
+
+---
+
 ## Contributing
 
 Contributions are welcome! Please submit issues or pull requests via GitHub.
@@ -33,12 +38,13 @@ This project is licensed under the AGPLv2 License. See the `LICENSE.md` file for
 
 ## Acknowledgments
 
-- Gragert et al. (2013) for HLA frequency data. @gragertSixlocusHighResolution2013a 
-- US Census Bureau for spatial and demographic data. @US2020Census
-- censusapi R package @rechtCensusapiRetrieveData2017 for accessing census data.
-- The NCI for awesome cancer catchment data. @delneroNationalMapNCIDesignated2022
-- The `sf`, `h3jsr`, `rnaturalearth`, and `usmap` packages for spatial data handling and visualization.
+-   Gragert et al. (2013) for HLA frequency data. @gragertSixlocusHighResolution2013a
+-   US Census Bureau for spatial and demographic data. @US2020Census
+-   censusapi R package @rechtCensusapiRetrieveData2017 for accessing census data.
+-   The NCI for awesome cancer catchment data. @delneroNationalMapNCIDesignated2022
+-   The `sf`, `h3jsr`, `rnaturalearth`, and `usmap` packages for spatial data handling and visualization.
 
 # References
 
 ::: {#refs}
+:::

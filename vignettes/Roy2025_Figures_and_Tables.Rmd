@@ -30,8 +30,8 @@ knitr::opts_chunk$set(
 
 # Introduction
 
--   Once you've downloaded all the requisite source information her the package's instructions, you can build the package and re-create Figures and Tables published in Roy2025
--   This vignette is provided to enable anyone to see the source data and methodology behind our publication.
+-   This page is provided as a resource to all summary genotypic frequencies used in figures and/or tables of Roy2025. They are specific to A\*11:01 or B\*58:01 and the respective states, counties, hexagons, or catchment areas. If interested in different HLAs, please read on.
+-   Once a user has downloaded all the requisite source information [per the package's instructions](https://affini-t-tx.github.io/CensusHLA/articles/censushla.html#getting-started), you can build the package and use the same functions and approach used for this vignette, but substitute your HLA or region of interest.
 
 ------------------------------------------------------------------------
 
