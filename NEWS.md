@@ -1,3 +1,9 @@
+# CensusHLA 0.2.1
+
++ Fixing bugs found on test machine
++ Removed creator from both CR and IS to just CR
++ 
+
 # CensusHLA 0.2.0
 
 + (2025-04-22)
