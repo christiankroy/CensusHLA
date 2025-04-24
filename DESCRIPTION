@@ -1,11 +1,11 @@
 Package: CensusHLA
 Title: CensusHLA - a package to map US HLA Frequency data by region
-Version: 0.2.0
+Version: 0.2.1
 Authors@R:
     c(
       person("Christian", "Roy", , "christian.roy@affinittx.com", role = c("aut", "cre"),
              comment = c(ORCID = "0000-0002-5953-5048")),
-      person("Ileana", "Saenz", , "ileana.saenz@affinittx.com",role = c("aut", "cre"),
+      person("Ileana", "Saenz", , "ileana.saenz@affinittx.com",role = c("aut"),
              comment = c(ORCID = "0009-0005-9107-4877"))
       )
 Description: Combines US HLA Frequencies with Census data for regional frequency predictions
